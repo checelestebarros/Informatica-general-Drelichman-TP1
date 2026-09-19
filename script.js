@@ -1,3 +1,6 @@
+// trivia (borrador)
+
+
 async function probarFetch() {
   const respuesta = await fetch("https://opentdb.com/api.php?amount=10&category=25&difficulty=easy&type=multiple");
   const datos = await respuesta.json();
@@ -25,3 +28,4 @@ async function probarFetch() {
 }
 
 probarFetch();
+// editar para asegurarse de que la primer respuesta no sea siempre la correcta
