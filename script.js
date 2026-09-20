@@ -1,6 +1,6 @@
 // trivia (borrador)
 
-//  decodificar html (a veces las preguntas vienen con caracteres html que el js no interpreta)
+// 1  decodificar html (a veces las preguntas vienen con caracteres html que el js no interpreta)
 
 function decodificarHTML(texto) {
   const elementoTemporal = document.createElement("textarea");
@@ -8,7 +8,7 @@ function decodificarHTML(texto) {
   return elementoTemporal.value;
 }
 
-  // esto es para que las opciones de respuesta se mezclen
+  // 2 esto es para que las opciones de respuesta se mezclen
   // reasigna los valores de las posiciones "j" e "i"
 
   function mezclarArray(array) {
@@ -19,33 +19,49 @@ function decodificarHTML(texto) {
   return array;
 }
 
-// 
+// 3 
+
+let preguntas = [];
+let indiceActual = 0;
+
+function mostrarPregunta() { 
+  const preguntaActual = preguntas[indiceActual];
+document.getElementById("pregunta").textContent = decodificarHTML(preguntaActual.question);
+document.getElementById("resultado").textContent = "";
+ const todasLasOpciones = mezclarArray([preguntaActual.correct_answer, ...preguntaActual.incorrect_answers]);
+  const contenedorOpciones = document.getElementById("opciones");
+  contenedorOpciones.innerHTML = "";
+ todasLasOpciones.forEach(function(opcion) {
+    const boton = document.createElement("button");
+    boton.textContent = decodificarHTML(opcion);
+
+    boton.addEventListener("click", function() {
+  if (opcion === preguntaActual.correct_answer) {
+    document.getElementById("resultado").textContent = "¡Correcto!";
+  } else {
+    document.getElementById("resultado").textContent = "Incorrecto. La respuesta correcta es: " + preguntaActual.correct_answer;
+  }
+  setTimeout(function() {
+    indiceActual = indiceActual + 1;
+    if (indiceActual < preguntas.length) {
+      mostrarPregunta();
+    } else {
+      document.getElementById("resultado").textContent = "¡Fin!";
+document.getElementById("pregunta").textContent = "";
+    }
+  }, 2000);
+});
+    contenedorOpciones.appendChild(boton);
+  });
+}
 
 async function probarFetch() {
   const respuesta = await fetch("https://opentdb.com/api.php?amount=10&category=25&difficulty=easy&type=multiple");
   const datos = await respuesta.json();
   console.log(datos);
 
-  const primeraPregunta = datos.results[0];
-  document.getElementById("pregunta").textContent = decodificarHTML(primeraPregunta.question);
-
- const todasLasOpciones = mezclarArray([primeraPregunta.correct_answer, ...primeraPregunta.incorrect_answers]);
-  const contenedorOpciones = document.getElementById("opciones");
-
-  todasLasOpciones.forEach(function(opcion) {
-    const boton = document.createElement("button");
-    boton.textContent = decodificarHTML(opcion);
-
-    boton.addEventListener("click", function() {
-  if (opcion === primeraPregunta.correct_answer) {
-    document.getElementById("resultado").textContent = "¡Correcto!";
-  } else {
-    document.getElementById("resultado").textContent = "Incorrecto. La respuesta correcta es: " + primeraPregunta.correct_answer;
-  }
-});
-    contenedorOpciones.appendChild(boton);
-  });
+  preguntas = datos.results; 
+  mostrarPregunta();
 }
-
 probarFetch();
 // 
