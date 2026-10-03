@@ -5,14 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hola Grupo</title>
 </head>
-<script src="script.js"></script>
 <body>
     <h1>Hola Grupo</h1>       
     <!-- borrador de trivia!! -->
     <a href="memoria.html">memoria</a>
-    <h2 id="pregunta"></h2>
-    <div id="opciones"></div>
-    <p id="resultado"></p>
+
+    <!-- Configuracion e Inicio -->
+    <div id="pantalla-inicio">
+        <!-- tema -->
+        <label for="select-categoria">Categoría:</label>
+        <select id="select-categoria">
+            <option value="25">Arte</option>
+            <option value="18">Informática</option>
+        </select>
+        
+        <!-- dificultad -->
+        <label for="select-dificultad">Dificultad:</label>
+        <select id="select-dificultad">
+            <option value="easy">Fácil</option>
+            <option value="medium">Medio</option>
+            <option value="hard">Difícil</option>
+        </select>
+
+        <button id="btn-iniciar">Comenzar Juego</button>
+    </div>
+
+    <hr>
+
+    <div id="pantalla-juego">
+        <h2 id="pregunta"></h2>
+        <div id="opciones"></div>
+        <p id="resultado"></p>
+    </div>
+
     
+    <script src="script.js"></script>
 </body>
 </html>

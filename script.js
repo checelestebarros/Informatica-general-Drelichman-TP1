@@ -16,7 +16,7 @@ function mezclarArray(array) {
   return array;
 }
 
-// 3 variables globales
+// variables globales
 let preguntas = [];
 let indiceActual = 0;
 let tokenSession = "";
@@ -53,6 +53,7 @@ function mostrarPregunta() {
         } else {
           document.getElementById("resultado").textContent = "¡Fin!";
           document.getElementById("pregunta").textContent = "";
+          document.getElementById("opciones").innerHTML = "";
         }
       }, 2000);
     });
@@ -60,19 +61,23 @@ function mostrarPregunta() {
   });
 }
 
-
-async function probarFetch() {
+async function cargarPreguntas(categoria, dificultad) {
   if (tokenSession === "") {
     await obtenerToken();
   } 
 
   
-  const respuesta = await fetch("https://opentdb.com/api.php?amount=10&category=25&difficulty=easy&type=multiple&token=" + tokenSession);
+  const respuesta = await fetch("https://opentdb.com/api.php?amount=10&category=" + categoria + "&difficulty=" + dificultad + "&type=multiple&token=" + tokenSession);
   const datos = await respuesta.json();
   console.log(datos);
 
   preguntas = datos.results; 
+  indiceActual = 0;
   mostrarPregunta();
 }
+document.getElementById("btn-iniciar").addEventListener("click", function() {
+  const categoriaElegida = document.getElementById("select-categoria").value;
+  const dificultadElegida = document.getElementById("select-dificultad").value;
 
-probarFetch();
+  cargarPreguntas(categoriaElegida, dificultadElegida);
+});
