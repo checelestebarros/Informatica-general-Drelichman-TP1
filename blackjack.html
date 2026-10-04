@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Blackjack</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+    <h1>Blackjack</h1>
+
+    <div class="juego">
+
+        <section>
+            <h2>Crupier</h2>
+            <div id="cartas-crupier" class="cartas"></div>
+            <p>Puntaje: <span id="puntaje-crupier">?</span></p>
+        </section>
+
+        <section>
+            <h2>Jugador</h2>
+            <div id="cartas-jugador" class="cartas"></div>
+            <p>Puntaje: <span id="puntaje-jugador">0</span></p>
+        </section>
+
+        <p id="resultado"></p>
+
+        <div class="botones">
+            <button id="btn-pedir">Pedir carta</button>
+            <button id="btn-plantarse">Plantarse</button>
+            <button id="btn-reiniciar">Nueva partida</button>
+        </div>
+
+    </div>
+
+    <script src="blackjack.js"></script>
+
+</body>
+</html>
