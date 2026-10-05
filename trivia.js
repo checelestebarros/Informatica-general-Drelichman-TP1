@@ -1,4 +1,4 @@
-// trivia (borrador)
+// trivia 
 
 // decodificar HTML
 function decodificarHTML(texto) {
@@ -22,12 +22,25 @@ let indiceActual = 0;
 let tokenSession = "";
 let tiempoRestante = 10;
 let idIntervalo = null;
+let puntaje = 0;
 
 // pedir token de sesion (para q no repita preguntas)
 async function obtenerToken() {
   const respuesta = await fetch("https://opentdb.com/api_token.php?command=request");
   const datos = await respuesta.json();
   tokenSession = datos.token;
+}
+
+// guardar récord en localStorage
+function guardarRecordTrivia() {
+  let recordPrevio = parseInt(localStorage.getItem("record_trivia")) || 0;
+
+  if (puntaje > recordPrevio) {
+    localStorage.setItem("record_trivia", puntaje);
+    document.getElementById("resultado").textContent = "¡Fin del juego!  ¡NUEVO RÉCORD: " + puntaje + " puntos!";
+  } else {
+    document.getElementById("resultado").textContent = "¡Fin del juego! Obtuviste: " + puntaje + " puntos. (Récord actual: " + recordPrevio + " puntos)";
+  }
 }
 
 // funcion para el temporizador de 10 segundos
@@ -53,10 +66,10 @@ function iniciarTimer() {
         if (indiceActual < preguntas.length) {
           mostrarPregunta();
         } else {
-          document.getElementById("resultado").textContent = "¡Fin!";
           document.getElementById("pregunta").textContent = "";
           document.getElementById("opciones").innerHTML = "";
           document.getElementById("tiempo").textContent = "0";
+          guardarRecordTrivia();
         }
       }, 2000);
     }
@@ -84,7 +97,8 @@ function mostrarPregunta() {
       clearInterval(idIntervalo);
 
       if (opcion === preguntaActual.correct_answer) {
-        document.getElementById("resultado").textContent = "¡Correcto!";
+        puntaje += 5;
+        document.getElementById("resultado").textContent = "¡Correcto! (+5 pts)";
       } else {
         document.getElementById("resultado").textContent = "Incorrecto. La respuesta correcta es: " + decodificarHTML(preguntaActual.correct_answer);
       }
@@ -97,9 +111,10 @@ function mostrarPregunta() {
         if (indiceActual < preguntas.length) {
           mostrarPregunta();
         } else {
-          document.getElementById("resultado").textContent = "¡Fin!";
           document.getElementById("pregunta").textContent = "";
           document.getElementById("opciones").innerHTML = "";
+          document.getElementById("tiempo").textContent = "0";
+          guardarRecordTrivia();
         }
       }, 2000);
     });
@@ -108,16 +123,27 @@ function mostrarPregunta() {
 }
 
 async function cargarPreguntas(categoria, dificultad) {
+  puntaje = 0;
   if (tokenSession === "") {
     await obtenerToken();
   } 
 
   const respuesta = await fetch("https://opentdb.com/api.php?amount=10&category=" + categoria + "&difficulty=" + dificultad + "&type=multiple&token=" + tokenSession);
+  
+  if (respuesta.status === 429) {
+    document.getElementById("resultado").textContent = "Espera unos segundos antes de volver a intentar.";
+    return;
+  }
+
   const datos = await respuesta.json();
 
-  preguntas = datos.results; 
-  indiceActual = 0;
-  mostrarPregunta();
+  if (datos.results && datos.results.length > 0) {
+    preguntas = datos.results; 
+    indiceActual = 0;
+    mostrarPregunta();
+  } else {
+    document.getElementById("resultado").textContent = "No se pudieron cargar las preguntas.";
+  }
 }
 
 // Evento para el botón de iniciar 
@@ -129,4 +155,3 @@ document.addEventListener("DOMContentLoaded", function() {
     cargarPreguntas(categoriaElegida, dificultadElegida);
   });
 });
-//
