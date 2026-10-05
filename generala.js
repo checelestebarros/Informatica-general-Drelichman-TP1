@@ -4,7 +4,9 @@
 let dados = [0, 0, 0, 0, 0];
 let guardados = [false, false, false, false, false];
 let tiradas = 0;
-let puntajeTotal = 0;
+let turnoJugador = 1; 
+let puntosJ1 = 0;
+let puntosJ2 = 0;
 
 // referencias a los elementos del DOM
 const dadosHTML = document.querySelector("#dados");
@@ -48,28 +50,39 @@ function mostrarDados() {
   }
 }
 
-// calcula el puntaje de la jugada y guarda el record en localStorage
-function guardarRecordDados() {
-  // suma los valores obtenidos de los 5 dados
+
+function finalizarTurno() {
+  // 1. Sumamos los 5 dados que sacó en esta ronda
   let suma = 0;
   for (let i = 0; i < 5; i++) {
     suma += dados[i];
   }
-  puntajeTotal = suma;
 
-  // lee si ya existía un récord guardado en el navegador
-  let recordPrevio = parseInt(localStorage.getItem("record_dados")) || 0;
+  
+  if (turnoJugador === 1) {
+    
+    puntosJ1 = suma; // guardamos los puntos en puntosJ1
+    document.getElementById("puntos-j1").textContent = puntosJ1; // Los mostramos en pantalla
 
-  // si el puntaje actual supera al record anterior, lo actualizamos
-  if (puntajeTotal > recordPrevio) {
-    localStorage.setItem("record_dados", puntajeTotal);
-    document.getElementById("mensaje").textContent = "¡Fin de la partida! ¡NUEVO RÉCORD: " + puntajeTotal + " pts!";
+   
+    turnoJugador = 2;
+    document.getElementById("indicador-turno").innerHTML = "Turno actual: <strong>Jugador 2</strong>";
+    document.getElementById("mensaje").textContent = "¡J1 terminó sus 3 tiradas! Ahora le toca al Jugador 2.";
+
+    //(limpiamos los dados a 0 y las tiradas a 0/3
+    prepararSiguienteTurno();
+
   } else {
-    document.getElementById("mensaje").textContent = "¡Fin de la partida! Puntaje obtenido: " + puntajeTotal + " pts (Récord actual: " + recordPrevio + " pts)";
+    /
+    puntosJ2 = suma; // guardamos los puntos en puntosJ2
+    document.getElementById("puntos-j2").textContent = puntosJ2; // Los mostramos en pantalla
+
+    // llamamos a determinar quien gano
+    determinarGanador();
   }
 }
 
-//  Genera números aleatorios (1-6) para los dados que NO esten guardados
+//  genera números aleatorios (1-6) para los dados que NO esten guardados
 function tirarDados() {
   if (tiradas < 3) {
     tiradas++;
@@ -85,8 +98,7 @@ function tirarDados() {
 
     // llega a la 3ra tirada se bloquea el botón y se calcula el record
     if (tiradas === 3) {
-      btnTirar.disabled = true;
-      guardarRecordDados();
+      finalizarTurno();
     }
   }
 }

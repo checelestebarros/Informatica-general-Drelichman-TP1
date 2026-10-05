@@ -2,21 +2,52 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generala</title>
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
+    <header>
+        <h1>Generala</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="generala.html">Generala</a>
+            <a href="blackjack.html">Blackjack</a>
+            <a href="puntajes.html">Puntajes</a>
+            <a href="trivia.html">Trivia</a>
+            <a href="nosotros.html">Integrantes</a>
+        </nav>
+    </header>
 
-<h1> Generala</h1>
+    <main>
+        <!--tablero dividido -->
+        <div id="pantalla-multijugador" style="display: flex; justify-content: space-around;">
+            <div id="panel-j1" class="panel-jugador activo">
+                <h2>Jugador 1</h2>
+                <p>Puntos: <span id="puntos-j1">0</span></p>
+            </div>
 
-<p id="tiradas">Tiradas: 0 / 3</p>
+            <div id="panel-j2" class="panel-jugador">
+                <h2>Jugador 2</h2>
+                <p>Puntos: <span id="puntos-j2">0</span></p>
+            </div>
+        </div>
 
-<div id="dados"></div>
+        <hr>
 
-<button id="btnTirar">Tirar dados</button>
-<button id="btnReiniciar">Reiniciar</button>
+        <p id="indicador-turno"> Turno actual: <strong>Jugador 1</strong></p>
+        <p id="tiradas">Tiradas: 0 / 3</p>
 
-<p id="resultado"></p>
+        <!--contenedor donde se insertan los dados -->
+        <div id="dados"></div>
 
-<script src="generala.js"></script>
+        <br>
+        <button id="btnTirar">Tirar Dados</button>
+        <button id="btnReiniciar">Nueva Partida</button>
+
+        <h3 id="mensaje"></h3>
+    </main>
+
+    <script src="js/generala.js"></script>
 </body>
 </html>
