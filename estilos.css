@@ -21,6 +21,16 @@ section {
     margin-bottom: 35px;
 }
 
+
+.oculta {
+    display: none ;
+}
+
+#pantalla-inicio {
+    text-align: center;
+    margin-top: 50px;
+}
+
 .cartas {
     min-height: 120px;
     display: flex;
