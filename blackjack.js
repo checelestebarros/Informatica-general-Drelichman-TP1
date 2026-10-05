@@ -68,8 +68,7 @@ function calcularPuntaje(cartas) {
     }
 
 
-    // Si se pasa de 21 y hay un As,
-    // el As vale 1 en lugar de 11
+    // Si se pasa de 21 y hay un As,el As vale 1 en lugar de 11
     while (puntaje > 21 && ases > 0) {
         puntaje -= 10;
         ases--;
@@ -266,5 +265,11 @@ document.getElementById("btn-reiniciar").addEventListener("click", function() {
 });
 
 
-// Iniciar automáticamente
-iniciarJuego();
+document.getElementById("btn-entrar").addEventListener("click", function() {
+    
+    // oculta el juego 
+    document.getElementById("pantalla-inicio").classList.add("oculta");
+    // Muestra el juego
+    document.getElementById("zona-juego").classList.remove("oculta");
+    iniciarJuego();
+});
