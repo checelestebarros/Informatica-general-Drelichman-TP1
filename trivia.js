@@ -1,4 +1,4 @@
-// trivia (borrador)
+// trivia 
 
 // decodificar HTML
 function decodificarHTML(texto) {
