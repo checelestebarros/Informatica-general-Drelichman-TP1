@@ -26,9 +26,15 @@ let puntaje = 0;
 
 // pedir token de sesion (para q no repita preguntas)
 async function obtenerToken() {
-  const respuesta = await fetch("https://opentdb.com/api_token.php?command=request");
-  const datos = await respuesta.json();
-  tokenSession = datos.token;
+  try {
+    const respuesta = await fetch("https://opentdb.com/api_token.php?command=request");
+    const datos = await respuesta.json();
+    if (datos.token) {
+      tokenSession = datos.token;
+    }
+  } catch (e) {
+    console.error("Error al obtener token:", e);
+  }
 }
 
 // guardar récord en localStorage
@@ -37,7 +43,7 @@ function guardarRecordTrivia() {
 
   if (puntaje > recordPrevio) {
     localStorage.setItem("record_trivia", puntaje);
-    document.getElementById("resultado").textContent = "¡Fin del juego!  ¡NUEVO RÉCORD: " + puntaje + " puntos!";
+    document.getElementById("resultado").textContent = "¡Fin del juego! ¡NUEVO RÉCORD: " + puntaje + " puntos!";
   } else {
     document.getElementById("resultado").textContent = "¡Fin del juego! Obtuviste: " + puntaje + " puntos. (Récord actual: " + recordPrevio + " puntos)";
   }
@@ -46,15 +52,16 @@ function guardarRecordTrivia() {
 // funcion para el temporizador de 10 segundos
 function iniciarTimer() {
   tiempoRestante = 10;
-  document.getElementById("tiempo").textContent = tiempoRestante;
+  const elemTiempo = document.getElementById("tiempo");
+  if (elemTiempo) elemTiempo.textContent = tiempoRestante;
 
   clearInterval(idIntervalo);
 
   idIntervalo = setInterval(function() {
     tiempoRestante--;
-    document.getElementById("tiempo").textContent = tiempoRestante;
+    if (elemTiempo) elemTiempo.textContent = tiempoRestante;
 
-    if (tiempoRestante === 0) {
+    if (tiempoRestante <= 0) {
       clearInterval(idIntervalo);
       document.getElementById("resultado").textContent = "Se acabó el tiempo!. La respuesta correcta es: " + decodificarHTML(preguntas[indiceActual].correct_answer);
 
@@ -68,7 +75,7 @@ function iniciarTimer() {
         } else {
           document.getElementById("pregunta").textContent = "";
           document.getElementById("opciones").innerHTML = "";
-          document.getElementById("tiempo").textContent = "0";
+          if (elemTiempo) elemTiempo.textContent = "0";
           guardarRecordTrivia();
         }
       }, 2000);
@@ -103,6 +110,12 @@ function mostrarPregunta() {
         document.getElementById("resultado").textContent = "Incorrecto. La respuesta correcta es: " + decodificarHTML(preguntaActual.correct_answer);
       }
 
+      // Actualizar el puntaje en pantalla si existe el elemento
+      const elemPuntaje = document.getElementById("puntaje");
+      if (elemPuntaje) {
+        elemPuntaje.textContent = puntaje;
+      }
+
       const botones = document.querySelectorAll("#opciones button");
       botones.forEach(b => b.disabled = true);
 
@@ -113,7 +126,8 @@ function mostrarPregunta() {
         } else {
           document.getElementById("pregunta").textContent = "";
           document.getElementById("opciones").innerHTML = "";
-          document.getElementById("tiempo").textContent = "0";
+          const elemTiempo = document.getElementById("tiempo");
+          if (elemTiempo) elemTiempo.textContent = "0";
           guardarRecordTrivia();
         }
       }, 2000);
@@ -124,34 +138,48 @@ function mostrarPregunta() {
 
 async function cargarPreguntas(categoria, dificultad) {
   puntaje = 0;
+  const elemPuntaje = document.getElementById("puntaje");
+  if (elemPuntaje) {
+    elemPuntaje.textContent = puntaje;
+  }
+
   if (tokenSession === "") {
     await obtenerToken();
   } 
 
-  const respuesta = await fetch("https://opentdb.com/api.php?amount=10&category=" + categoria + "&difficulty=" + dificultad + "&type=multiple&token=" + tokenSession);
-  
-  if (respuesta.status === 429) {
-    document.getElementById("resultado").textContent = "Espera unos segundos antes de volver a intentar.";
-    return;
-  }
+  try {
+    const url = "https://opentdb.com/api.php?amount=10&category=" + categoria + "&difficulty=" + dificultad + "&type=multiple" + (tokenSession ? "&token=" + tokenSession : "");
+    const respuesta = await fetch(url);
+    
+    if (respuesta.status === 429) {
+      document.getElementById("resultado").textContent = "Espera unos segundos antes de volver a intentar.";
+      return;
+    }
 
-  const datos = await respuesta.json();
+    const datos = await respuesta.json();
 
-  if (datos.results && datos.results.length > 0) {
-    preguntas = datos.results; 
-    indiceActual = 0;
-    mostrarPregunta();
-  } else {
-    document.getElementById("resultado").textContent = "No se pudieron cargar las preguntas.";
+    if (datos.results && datos.results.length > 0) {
+      preguntas = datos.results; 
+      indiceActual = 0;
+      mostrarPregunta();
+    } else {
+      document.getElementById("resultado").textContent = "No se pudieron cargar las preguntas.";
+    }
+  } catch (error) {
+    console.error("Error al cargar preguntas:", error);
+    document.getElementById("resultado").textContent = "Error de conexión al cargar las preguntas.";
   }
 }
 
 // Evento para el botón de iniciar 
 document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById("btn-iniciar").addEventListener("click", function() {
-    const categoriaElegida = document.getElementById("select-categoria").value;
-    const dificultadElegida = document.getElementById("select-dificultad").value;
+  const btnIniciar = document.getElementById("btn-iniciar");
+  if (btnIniciar) {
+    btnIniciar.addEventListener("click", function() {
+      const categoriaElegida = document.getElementById("select-categoria").value;
+      const dificultadElegida = document.getElementById("select-dificultad").value;
 
-    cargarPreguntas(categoriaElegida, dificultadElegida);
-  });
+      cargarPreguntas(categoriaElegida, dificultadElegida);
+    });
+  }
 });
