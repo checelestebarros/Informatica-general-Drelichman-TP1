@@ -20,6 +20,25 @@
     </header>
 
     <main>
+        <!-- nombres -->
+         <div id="ingreso-nombres">
+            <label>Nombre J1: <input type="text" id="input-j1" value="Jugador 1"></label>
+            <label>Nombre J2: <input type="text" id="input-j2" value="Jugador 2"></label>
+        </div>
+
+        <br>
+
+        <div>
+            <div>
+                <h2 id="nombre-display-j1">Jugador 1</h2>
+                <p>Puntos: <span id="puntos-j1">0</span></p>
+            </div>
+
+            <div>
+                <h2 id="nombre-display-j2">Jugador 2</h2>
+                <p>Puntos: <span id="puntos-j2">0</span></p>
+            </div>
+        </div>
         <!--tablero dividido -->
         <div id="pantalla-multijugador" style="display: flex; justify-content: space-around;">
             <div id="panel-j1" class="panel-jugador activo">
@@ -48,6 +67,6 @@
         <h3 id="mensaje"></h3>
     </main>
 
-    <script src="js/generala.js"></script>
+    <script src="generala.js"></script>
 </body>
 </html>
