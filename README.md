@@ -1,7 +1,7 @@
 # Trabajo Práctico 1 - Sitio Web Multijuego
 
 * **Materia:** Informática General (2026)
-* **Cátedra:** Valeria Drelichman, Pedro Paleo, Leonardo Nadel, Norma Morales
+* **Cátedra:** Drelichman
 * **Grupo:** 18
 
 ## Integrantes
@@ -74,7 +74,11 @@ El proyecto utiliza `localStorage` como mecanismo de persistencia local en el cl
 * **Parámetros Utilizados:** Categorías (ID `25` para Arte, ID `18` para Informática), Dificultad (`easy`, `medium`, `hard`) y Tipo (`multiple`).
 
 ---
+## Declaracion de uso de IA
 
+A lo largo de todo el trabajo practico se ha utilizado el modelo de inteligencia artificial Gemini y Claude para resolver dudas en cuanto a donde se situaban errores del codigo, resolver dudas y supervision general del proyecto.
+
+---
 ## Organización de Archivos y Carpetas
 
 ```text

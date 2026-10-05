@@ -3,15 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hola Grupo</title>
+    <title>Plataforma Multijuego - TP1 Informática</title>
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    <h1>Hola Grupo</h1>       
-    <!-- borrador de trivia!! -->
-    <a href="generala.html">generala</a>
-    <a href="blackjack.html">Juego Blackjack</a>
-    <a href="trivia.html">Juego Trivia</a>
+    <header>
+        <h1>Plataforma Multijuego Web</h1>
+        <nav>
+            <a href="generala.html">Generala</a>
+            <a href="trivia.html">Trivia</a>
+            <a href="blackjack.html">Blackjack</a>
+            <a href="puntajes.html">Puntajes</a>
+            <a href="presentacion.html">Integrantes</a>
+        </nav>
+    </header>
 
+    <main>
+        <section id="presentacion">
+            <h2>¡Bienvenidxs a la Sala de Juegos!</h2>
+            <p>
+                Esta plataforma web interactiva fue desarrollada como parte del Trabajo Práctico N° 1 
+                para la materia <strong>Informática General (Cátedra Drelichman - 2026)</strong>. 
+                Aquí podrás jugar de una colección de tres juegos web dinámicos desarrollados con HTML, CSS y JavaScript :D.
+            </p>
+        </section>
 
+        <hr>
+
+        <section id="resumen-juegos">
+            <h2>Nuestros Juegos y Reglas</h2>
+
+            <article class="tarjeta-juego">
+                <h3>Generala (Multijugador)</h3>
+                <p><strong>Objetivo:</strong> Competir contra otro jugador en la misma pantalla para obtener la suma de puntos más alta.</p>
+                <p><strong>Reglas básicas:</strong> Cada jugador tiene un turno con un máximo de 3 tiradas de dados. En cada tirada se pueden seleccionar y congelar dados para mantener su valor. Al terminar el turno de ambos jugadores, el sistema determina al ganador y guarda el récord máximo en el navegador.</p>
+                <a href="generala.html">Jugar a la Generala</a>
+            </article>
+
+            <br>
+
+            <article class="tarjeta-juego">
+                <h3>Trivia (OpenTDB)</h3>
+                <p><strong>Objetivo:</strong> Responder preguntas de opción múltiple antes de que se agote el tiempo.</p>
+                <p><strong>Reglas básicas:</strong> Elegí entre las categorías de Arte o Informática, y seleccioná la dificultad (Fácil, Medio o Difícil). Contás con un temporizador de 15 segundos por pregunta. Las preguntas se obtienen en tiempo real mediante una API pública sin repetirse en la sesión.</p>
+                <a href="trivia.html">Jugar a la Trivia</a>
+            </article>
+
+            <br>
+
+            <article class="tarjeta-juego">
+                <h3>Blackjack (Veintiuno)</h3>
+                <p><strong>Objetivo:</strong> Sumar 21 puntos o quedar más cerca que la banca sin pasarse.</p>
+                <p><strong>Reglas básicas:</strong> Pedí cartas para sumar valor a tu mano o plantate para mantener tu puntuación actual. Las figuras valen 10 puntos y el As vale 11 o 1 según te convenga. Si superás los 21 puntos, pierdes la ronda automáticamente.</p>
+                <a href="blackjack.html">Jugar al Blackjack</a>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>Trabajo Práctico 1 - Grupo 18 | Informática General 2026</p>
+    </footer>
 </body>
 </html>
