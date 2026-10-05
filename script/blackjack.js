@@ -248,6 +248,20 @@ function terminarJuego(mensaje) {
     document.getElementById("resultado").textContent = mensaje;
     mostrarJugador();
     mostrarCrupier(true);
+
+    // Guardar puntos
+    if (mensaje.includes("Ganaste")) {
+        let victoriasGuardadas = localStorage.getItem("record_blackjack") || 0;
+        let puntosASumar = 0;
+
+        if(mensaje.includes("Blackjack")) {
+            puntosASumar = 5; 
+        } else {
+            puntosASumar = 1; 
+        }
+        let nuevoRecord = parseInt(victoriasGuardadas) + puntosASumar;
+        localStorage.setItem("record_blackjack", nuevoRecord);
+    }
 }
 
 
@@ -264,9 +278,7 @@ document.getElementById("btn-reiniciar").addEventListener("click", function() {
     iniciarJuego();
 });
 
-
 document.getElementById("btn-entrar").addEventListener("click", function() {
-    
     // oculta el juego 
     document.getElementById("pantalla-inicio").classList.add("oculta");
     // Muestra el juego
