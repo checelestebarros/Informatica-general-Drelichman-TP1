@@ -113,6 +113,7 @@ let nombreJ1 = obtenerNombreJ1();
     prepararSiguienteTurno();
 
   } else {
+    /
     puntosJ2 = suma; // guardamos los puntos en puntosJ2
     document.getElementById("puntos-j2").textContent = puntosJ2; // Los mostramos en pantalla
    document.getElementById("nombre-display-j2").textContent = nombreJ2;
