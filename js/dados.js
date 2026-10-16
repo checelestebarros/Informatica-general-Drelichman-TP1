@@ -1,5 +1,3 @@
-// generala
-
 // variables globales 
 let dados = [0, 0, 0, 0, 0];
 let guardados = [false, false, false, false, false];
@@ -13,6 +11,7 @@ const dadosHTML = document.querySelector("#dados");
 const btnTirar = document.querySelector("#btnTirar");
 const btnReiniciar = document.querySelector("#btnReiniciar");
 const textoTiradas = document.querySelector("#tiradas");
+
 // nombres de los jugadores
 function obtenerNombreJ1() {
   let input = document.getElementById("input-j1").value.trim();
@@ -36,9 +35,9 @@ function mostrarDados() {
 
     // creamos la etiqueta de imagen dinámicamente según la cara obtenida
     let imagenDado = document.createElement("img");
-    imagenDado.src = "img/dado" + numeroCara + ".png"; // Construye ej: "img/dado1.png"
+    imagenDado.src = "img/dado" + numeroCara + ".png"; 
     imagenDado.alt = "Dado " + numeroCara;
-    imagenDado.width = 60; // Tamaño de la imagen
+    imagenDado.width = 60; 
 
     dadoBoton.appendChild(imagenDado);
 
@@ -69,6 +68,15 @@ function prepararSiguienteTurno() {
   mostrarDados();
 }
 
+// evalua si los 5 dados tienen el mismo valor
+function esCombo() {
+  let primerDado = dados[0];
+  if (primerDado === 0) return false;
+  return dados.every(function(dado) {
+    return dado === primerDado;
+  });
+}
+
 // evalua el ganador al finalizar los 2 turnos y guarda en localStorage
 function determinarGanador() {
   btnTirar.disabled = true;
@@ -76,14 +84,26 @@ function determinarGanador() {
   let nombreJ1 = obtenerNombreJ1();
   let nombreJ2 = obtenerNombreJ2();
 
+  // guardamos la partida completa de ambos jugadores en formato JSON
+  let datosPartida = {
+    jugador1: { nombre: nombreJ1, puntos: puntosJ1 },
+    jugador2: { nombre: nombreJ2, puntos: puntosJ2 },
+    fecha: new Date().toLocaleDateString()
+  };
+
+  localStorage.setItem("ultima_partida_generala", JSON.stringify(datosPartida));
+
+  // calculamos el récord histórico
   let mayorPuntaje = Math.max(puntosJ1, puntosJ2);
   let recordPrevio = parseInt(localStorage.getItem("record_dados")) || 0;
 
   if (mayorPuntaje > recordPrevio) {
+    let ganadorRecord = puntosJ1 >= puntosJ2 ? nombreJ1 : nombreJ2;
     localStorage.setItem("record_dados", mayorPuntaje);
+    localStorage.setItem("record_jugador", ganadorRecord);
   }
 
-  // usamos los nombres en el cartel de fin de juego
+  // cartel final
   if (puntosJ1 > puntosJ2) {
     document.getElementById("mensaje").textContent = "¡Fin del juego! ¡Ganó " + nombreJ1 + " con " + puntosJ1 + " pts!";
   } else if (puntosJ2 > puntosJ1) {
@@ -94,52 +114,58 @@ function determinarGanador() {
 }
 
 function finalizarTurno() {
-  // 1. Sumamos los 5 dados que sacó en esta ronda
   let suma = 0;
   for (let i = 0; i < 5; i++) {
     suma += dados[i];
   }
-let nombreJ1 = obtenerNombreJ1();
+
+  // bonus: si los 5 dados son iguales sumamos 20 puntos extra
+  if (esCombo()) {
+    suma += 20; 
+  }
+
+  let nombreJ1 = obtenerNombreJ1();
   let nombreJ2 = obtenerNombreJ2();
+
   if (turnoJugador === 1) {
-    puntosJ1 = suma; // guardamos los puntos en puntosJ1
-    document.getElementById("puntos-j1").textContent = puntosJ1; // Los mostramos en pantalla
-   document.getElementById("nombre-display-j1").textContent = nombreJ1;
-   
+    puntosJ1 = suma;
+    document.getElementById("puntos-j1").textContent = puntosJ1;
+    document.getElementById("nombre-display-j1").textContent = nombreJ1;
+    
     turnoJugador = 2;
     document.getElementById("indicador-turno").innerHTML = "Turno actual: <strong>" + nombreJ2 + "</strong>";
-    document.getElementById("mensaje").textContent = "¡" + nombreJ1 + " terminó sus 3 tiradas! Ahora le toca a " + nombreJ2 + ".";
-    //(limpiamos los dados a 0 y las tiradas a 0/3
+    document.getElementById("mensaje").textContent = "¡" + nombreJ1 + " terminó su turno! Le toca a " + nombreJ2 + ".";
     prepararSiguienteTurno();
 
   } else {
-    
-    puntosJ2 = suma; // guardamos los puntos en puntosJ2
-    document.getElementById("puntos-j2").textContent = puntosJ2; // Los mostramos en pantalla
-   document.getElementById("nombre-display-j2").textContent = nombreJ2;
-    // llamamos a determinar quien gano
+    puntosJ2 = suma;
+    document.getElementById("puntos-j2").textContent = puntosJ2;
+    document.getElementById("nombre-display-j2").textContent = nombreJ2;
     determinarGanador();
   }
 }
 
-// Genera números aleatorios (1-6) para los dados que NO esten guardados
+// genera numeros aleatorios (1-6) para los dados que NO esten guardados
 function tirarDados() {
-  if (tiradas < 3) {
-    tiradas++;
+  if (tiradas === 3) {
+    finalizarTurno();
+    return;
+  }
 
-    for (let i = 0; i < 5; i++) {
-      if (!guardados[i]) {
-        dados[i] = Math.floor(Math.random() * 6) + 1;
-      }
+  tiradas++;
+
+  for (let i = 0; i < 5; i++) {
+    if (!guardados[i]) {
+      dados[i] = Math.floor(Math.random() * 6) + 1;
     }
+  }
 
-    mostrarDados();
-    textoTiradas.innerText = "Tiradas: " + tiradas + " / 3";
+  mostrarDados();
+  textoTiradas.innerText = "Tiradas: " + tiradas + " / 3";
 
-    // llega a la 3ra tirada se bloquea el botón y se calcula el record
-    if (tiradas === 3) {
-      finalizarTurno();
-    }
+  if (tiradas === 3) {
+    let nombreActual = turnoJugador === 1 ? obtenerNombreJ1() : obtenerNombreJ2();
+    document.getElementById("mensaje").textContent = "¡" + nombreActual + " completó sus 3 tiradas! Presiona 'Tirar' para pasar de turno.";
   }
 }
 
@@ -158,6 +184,7 @@ function reiniciar() {
   prepararSiguienteTurno();
 }
 
+// asigno de eventos e inicialización
 btnTirar.onclick = tirarDados;
 btnReiniciar.onclick = reiniciar;
 
