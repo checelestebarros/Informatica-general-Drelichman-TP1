@@ -11,31 +11,42 @@
         <a href="index.html">Inicio</a>
         <a href="dados.html">Dados</a>
         <a href="trivia.html">Trivia</a>
+        <a href="blackjack.html">Blackjack</a>
         <a href="puntajes.html">Puntajes</a>
+        <a href="presentacion.html">Integrantes</a>
     </nav>
 
     <main class="contenedor-principal">
         <h1>Juego de Blackjack</h1>
         <p>Intenta llegar a 21 sin pasarte.</p>
-        
-        <div class="zona-botones">
-            <button id="pedir">Pedir Carta</button>
-            <button id="plantar">Plantarse</button>
-        </div>
 
-        <div class="seccion-cartas">
-            <h3>Tus Cartas</h3>
-            <div id="cartas-jugador" class="contenedor-cartas"></div>
-            <div id="puntaje-jugador">Puntaje: 0</div>
-        </div>
+        <section class="tarjeta-seccion">
+            <div class="campo-form" style="margin-bottom: 15px;">
+                <label for="nombre-jugador">Ingresá tu nombre:</label>
+                <input type="text" id="nombre-jugador" placeholder="Ej: Celeste">
+                <button id="btn-iniciar">Iniciar Juego</button>
+            </div>
 
-        <div class="seccion-cartas">
-            <h3>Cartas del Crupier</h3>
-            <div id="cartas-crupier" class="contenedor-cartas"></div>
-            <div id="puntaje-crupier">Puntaje Crupier: ?</div>
-        </div>
+            <div class="zona-botones">
+                <button id="pedir" disabled>Pedir Carta</button>
+                <button id="plantar" disabled>Plantarse</button>
+                <button id="btn-nuevo-juego" class="oculto">Nueva Partida</button>
+            </div>
 
-        <div id="resultado"></div>
+            <div class="seccion-cartas">
+                <h3 id="titulo-jugador">Tus Cartas</h3>
+                <div id="cartas-jugador" class="contenedor-cartas"></div>
+                <div id="puntaje-jugador">Puntaje: 0</div>
+            </div>
+
+            <div class="seccion-cartas">
+                <h3>Cartas del Crupier</h3>
+                <div id="cartas-crupier" class="contenedor-cartas"></div>
+                <div id="puntaje-crupier">Puntaje Crupier: ?</div>
+            </div>
+
+            <div id="resultado" class="oculto"></div>
+        </section>
     </main>
 
     <script src="js/blackjack.js"></script>
