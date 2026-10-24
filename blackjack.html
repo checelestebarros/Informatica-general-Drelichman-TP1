@@ -2,55 +2,42 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blackjack</title>
-  <link rel="stylesheet" href="css/estilos.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
-
 <body>
-    <div id="pantalla-inicio">
-        <h1>Blackjack</h1>
-        <button id="btn-entrar">Iniciar Juego</button>
-    </div>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="dados.html">Dados</a>
+        <a href="trivia.html">Trivia</a>
+        <a href="puntajes.html">Puntajes</a>
+    </nav>
 
-
-    <div id="zona-juego" class="oculta">
+    <main class="contenedor-principal">
+        <h1>Juego de Blackjack</h1>
+        <p>Intenta llegar a 21 sin pasarte.</p>
         
-        <h1>Blackjack</h1>
-
-    <div class="juego">
-
-        <section>
-            <h2>Crupier</h2>
-            <div id="cartas-crupier" class="cartas"></div>
-            <p>Puntaje: <span id="puntaje-crupier">?</span></p>
-        </section>
-
-        <section>
-            <h2>Jugador</h2>
-            <div id="cartas-jugador" class="cartas"></div>
-            <p>Puntaje: <span id="puntaje-jugador">0</span></p>
-        </section>
-
-        <p id="resultado"></p>
-
-        <div class="botones">
-            <button id="btn-pedir">Pedir carta</button>
-            <button id="btn-plantarse">Plantarse</button>
-            <button id="btn-reiniciar">Nueva partida</button>
+        <div class="zona-botones">
+            <button id="pedir">Pedir Carta</button>
+            <button id="plantar">Plantarse</button>
         </div>
 
-    </div>
-<nav> <a href="index.html">Inicio</a>
-            <a href="dados.html"></a>Dados</a>
-            <a href="puntajes.html">Puntajes</a>
-            <a href="trivia.html">Trivia</a>
-            <a href="presentacion.html">Integrantes</a>
-     
-        </nav>
-    <script src="js/blackjack.js"></script>
+        <div class="seccion-cartas">
+            <h3>Tus Cartas</h3>
+            <div id="cartas-jugador" class="contenedor-cartas"></div>
+            <div id="puntaje-jugador">Puntaje: 0</div>
+        </div>
 
+        <div class="seccion-cartas">
+            <h3>Cartas del Crupier</h3>
+            <div id="cartas-crupier" class="contenedor-cartas"></div>
+            <div id="puntaje-crupier">Puntaje Crupier: ?</div>
+        </div>
+
+        <div id="resultado"></div>
+    </main>
+
+    <script src="js/blackjack.js"></script>
 </body>
 </html>

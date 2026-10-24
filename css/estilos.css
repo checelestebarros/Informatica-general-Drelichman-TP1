@@ -1,182 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
-body {
+* {
+    box-sizing: border-box;
     margin: 0;
-    font-family: 'VT323', monospace, Arial, sans-serif;
-    background-color: #000000;
-    color: #00ff66;
-    text-align: center;
-    font-size: 22px;
+    padding: 0;
 }
 
+body {
+    background-color: #000;
+    color: #00ff66;
+    font-family: 'Press Start 2P', cursive;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* NAV */
 header {
-    background-color: #0d0d0d;
-    padding: 15px 0;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #000000;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px;
     border-bottom: 2px solid #00ff66;
-    margin-bottom: 30px;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(0, 255, 102, 0.15);
+    background-color: #12141d;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    flex-wrap: wrap;
 }
 
 nav a {
     color: #00ff66;
     text-decoration: none;
-    margin: 0 12px;
-    font-size: 24px;
+    font-size: 0.65rem;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
 }
 
 nav a:hover {
-    color: #ffffff;
+    background-color: #00ff66;
+    color: #0d0e15;
+    box-shadow: 0 0 8px #00ff66;
+}
+
+main, .contenedor-principal {
+    max-width: 650px;
+    width: 90%;
+    margin: 30px auto;
+    padding: 0 10px;
 }
 
 h1 {
-    font-size: 40px;
-    margin-bottom: 30px;
+    font-size: 1.1rem;
+    margin: 15px 0;
+    text-shadow: 2px 2px 0px #005522;
+    letter-spacing: 0.5px;
+}
+
+h2 {
+    font-size: 0.85rem;
+    color: #ffffff;
+    margin-bottom: 12px;
+    text-shadow: 1px 1px 0px #00ff66;
+}
+
+h3 {
+    font-size: 0.7rem;
     color: #00ff66;
+    margin-bottom: 8px;
 }
 
-h2, h3 {
-    color: #00ff66;
+p, li, label, footer p {
+    font-size: 0.6rem;
+    color: #b0c4de;
+    margin-bottom: 8px;
+    line-height: 1.8;
 }
 
-p {
-    max-width: 750px;
-    margin: 10px auto;
-    text-align: justify;
-    text-justify: inter-word;
-    line-height: 1.4;
-    padding: 0 15px;
-}
-
-.juego {
-    width: 800px;
-    max-width: 90%;
-    margin: auto;
-    background-color: #0d0d0d;
+section, .tarjeta-seccion {
+    background-color: #161925;
     border: 2px solid #00ff66;
-    padding: 20px;
     border-radius: 8px;
-}
-
-main {
-    width: 800px;
-    max-width: 90%;
-    margin: auto;
-    background-color: #0d0d0d;
-    border: 2px solid #00ff66;
-    padding: 20px;
-    border-radius: 8px;
-}
-
-section {
-    margin-bottom: 35px;
-}
-
-.oculta {
-    display: none;
-}
-
-#pantalla-inicio {
+    padding: 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 0px #005522, 0 8px 15px rgba(0, 0, 0, 0.5);
     text-align: center;
-    margin-top: 50px;
 }
 
-.cartas {
-    min-height: 120px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.carta {
-    width: 70px;
-    height: 100px;
-    background-color: white;
-    color: black;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 25px;
-    border: 2px solid black;
-}
-
-.roja {
-    color: red;
-}
-
-#resultado {
-    font-size: 25px;
-    font-weight: bold;
-    min-height: 35px;
-}
-
-.botones {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
-
-button {
-    padding: 12px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #000000;
+button, .btn {
+    font-family: 'Press Start 2P', monospace;
+    background-color: #12141d;
     color: #00ff66;
     border: 2px solid #00ff66;
-    font-family: 'VT323', monospace;
+    padding: 8px 14px;
+    margin: 6px;
+    cursor: pointer;
+    font-size: 0.65rem;
     border-radius: 5px;
-    margin: 5px;
+    box-shadow: 0 3px 0 #005522;
+    transition: all 0.1s ease;
 }
 
-button:hover {
+button:hover, .btn:hover {
     background-color: #00ff66;
-    color: #000000;
+    color: #0d0e15;
+    box-shadow: 0 1px 0 #005522;
+    transform: translateY(2px);
 }
 
 button:disabled {
-    border-color: #444444;
-    color: #444444;
-    background-color: #111111;
+    border-color: #3a4253;
+    color: #5d677a;
+    background-color: #1a1d27;
+    box-shadow: none;
     cursor: not-allowed;
+    transform: none;
 }
 
+/* INPUTS Y SELECTS */
 input[type="text"], select {
-    background-color: #000000;
+    font-family: 'Press Start 2P', monospace;
+    background-color: #0d0e15;
     color: #00ff66;
     border: 2px solid #00ff66;
-    padding: 8px;
-    font-family: 'VT323', monospace;
-    font-size: 20px;
-    border-radius: 5px;
+    padding: 8px 10px;
+    font-size: 0.65rem;
+    border-radius: 4px;
     margin: 5px;
+    outline: none;
+    cursor: pointer;
 }
 
-#dados {
+select {
+    min-width: 220px;
+    max-width: 100%;
+    text-align: center;
+}
+
+select option {
+    background-color: #0d0e15;
+    color: #00ff66;
+}
+
+input[type="text"]:focus, select:focus {
+    box-shadow: 0 0 6px #00ff66;
+}
+
+.form-control, .selector-juego {
     display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin: 20px 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
 }
 
-#dados button {
-    background: transparent;
-    border: 2px solid transparent;
-    padding: 4px;
+/* DADOS */
+.contenedor-nombres {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
-#dados button.guardado {
-    border: 3px solid #ffff00;
-    background-color: rgba(255, 255, 0, 0.2);
+.marcador {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #00ff66;
+    padding-bottom: 10px;
 }
 
-hr {
-    border: 0;
-    height: 1px;
-    background: #00ff66;
-    margin: 25px 0;
+/* Y TRIVIA/BLACKJACK */
+.oculto, .oculta {
+    display: none !important;
+}
+
+#resultado {
+    font-size: 0.7rem;
+    margin-top: 12px;
+    padding: 8px;
+    color: #ffffff;
+    background-color: #12141d;
+    border-radius: 5px;
+    border: 1px dashed #00ff66;
 }
 
 footer {
-    margin-top: 40px;
-    padding: 15px 0;
-    font-size: 18px;
+    margin-top: auto;
+    padding: 10px;
+    border-top: 1px solid #00ff66;
+    width: 100%;
+    text-align: center;
 }

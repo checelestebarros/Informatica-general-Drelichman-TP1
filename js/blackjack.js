@@ -21,12 +21,9 @@ let cartasJugador = [];
 let cartasCrupier = [];
 let juegoTerminado = false;
 
-
 // Crear el mazo
 function crearMazo() {
-
     mazo = [];
-
     for (let palo of palos) {
         for (let valor of valores) {
             mazo.push({
@@ -38,7 +35,6 @@ function crearMazo() {
     }
 }
 
-
 // Mezclar el mazo
 function mezclar() {
     for (let i = mazo.length - 1; i > 0; i--) {
@@ -49,12 +45,10 @@ function mezclar() {
     }
 }
 
-
 // Sacar una carta
 function sacarCarta() {
-    return mazo.pop()
+    return mazo.pop();
 }
-
 
 // Calcular puntaje
 function calcularPuntaje(cartas) {
@@ -67,8 +61,7 @@ function calcularPuntaje(cartas) {
         }
     }
 
-
-    // Si se pasa de 21 y hay un As,el As vale 1 en lugar de 11
+    // Si se pasa de 21 y hay un As, el As vale 1
     while (puntaje > 21 && ases > 0) {
         puntaje -= 10;
         ases--;
@@ -76,10 +69,11 @@ function calcularPuntaje(cartas) {
     return puntaje;
 }
 
-
 // Mostrar cartas del jugador
 function mostrarJugador() {
     const contenedor = document.getElementById("cartas-jugador");
+    if (!contenedor) return;
+
     contenedor.innerHTML = "";
     for (let carta of cartasJugador) {
         const elemento = document.createElement("div");
@@ -91,68 +85,61 @@ function mostrarJugador() {
         contenedor.appendChild(elemento);
     }
 
-    document.getElementById("puntaje-jugador").textContent =
-        calcularPuntaje(cartasJugador);
+    const puntajeElem = document.getElementById("puntaje-jugador");
+    if (puntajeElem) {
+        puntajeElem.textContent = "Puntaje: " + calcularPuntaje(cartasJugador);
+    }
 }
-
 
 // Mostrar cartas del crupier
 function mostrarCrupier(mostrarTodas = false) {
-
     const contenedor = document.getElementById("cartas-crupier");
+    if (!contenedor) return;
 
     contenedor.innerHTML = "";
-
     for (let i = 0; i < cartasCrupier.length; i++) {
-
         const carta = cartasCrupier[i];
-
         const elemento = document.createElement("div");
-
         elemento.classList.add("carta");
 
         if (i === 1 && !mostrarTodas) {
-
             elemento.textContent = "?";
-
         } else {
-
             if (carta.palo === "♥" || carta.palo === "♦") {
                 elemento.classList.add("roja");
             }
-
             elemento.textContent = carta.nombre + carta.palo;
         }
-
         contenedor.appendChild(elemento);
     }
 
-    if (mostrarTodas) {
-
-        document.getElementById("puntaje-crupier").textContent =
-            calcularPuntaje(cartasCrupier);
-
-    } else {
-
-        document.getElementById("puntaje-crupier").textContent = "?";
-
+    const puntajeCrupierElem = document.getElementById("puntaje-crupier");
+    if (puntajeCrupierElem) {
+        if (mostrarTodas) {
+            puntajeCrupierElem.textContent = "Puntaje Crupier: " + calcularPuntaje(cartasCrupier);
+        } else {
+            puntajeCrupierElem.textContent = "Puntaje Crupier: ?";
+        }
     }
 }
 
-
 // Comenzar una partida
 function iniciarJuego() {
-
     crearMazo();
-
     mezclar();
 
     cartasJugador = [];
     cartasCrupier = [];
-
     juegoTerminado = false;
 
-    document.getElementById("resultado").textContent = "";
+    const resElem = document.getElementById("resultado");
+    if (resElem) resElem.textContent = "";
+
+    // Habilitar botones
+    const btnPedir = document.getElementById("pedir");
+    const btnPlantar = document.getElementById("plantar");
+    if (btnPedir) btnPedir.disabled = false;
+    if (btnPlantar) btnPlantar.disabled = false;
 
     // Repartir dos cartas a cada uno
     cartasJugador.push(sacarCarta());
@@ -166,10 +153,8 @@ function iniciarJuego() {
     comprobarBlackjack();
 }
 
-
-// Comprobar Blackjack
+// Comprobar Blackjack inicial
 function comprobarBlackjack() {
-
     let jugador = calcularPuntaje(cartasJugador);
     let crupier = calcularPuntaje(cartasCrupier);
 
@@ -182,12 +167,9 @@ function comprobarBlackjack() {
     }
 }
 
-
 // Pedir una carta
 function pedirCarta() {
-    if (juegoTerminado) {
-        return;
-    }
+    if (juegoTerminado) return;
 
     cartasJugador.push(sacarCarta());
     mostrarJugador();
@@ -201,20 +183,14 @@ function pedirCarta() {
     }
 }
 
-
 // Plantarse
 function plantarse() {
-    if (juegoTerminado) {
-        return;
-    }
+    if (juegoTerminado) return;
     turnoCrupier();
-
 }
-
 
 // Turno del crupier
 function turnoCrupier() {
-
     while (calcularPuntaje(cartasCrupier) < 17) {
         cartasCrupier.push(sacarCarta());
     }
@@ -222,66 +198,55 @@ function turnoCrupier() {
     compararResultados();
 }
 
-
 // Comparar resultados
 function compararResultados() {
-
     let jugador = calcularPuntaje(cartasJugador);
     let crupier = calcularPuntaje(cartasCrupier);
 
     if (crupier > 21) {
-        terminarJuego("El crupier se paso, Ganaste.");
+        terminarJuego("El crupier se pasó, Ganaste.");
     } else if (jugador > crupier) {
-        terminarJuego("Ganaste");
+        terminarJuego("Ganaste.");
     } else if (jugador < crupier) {
-        terminarJuego("Perdiste");
+        terminarJuego("Perdiste.");
     } else {
         terminarJuego("Empate.");
     }
 }
 
-
 // Terminar partida
 function terminarJuego(mensaje) {
-
     juegoTerminado = true;
-    document.getElementById("resultado").textContent = mensaje;
+
+    const resElem = document.getElementById("resultado");
+    if (resElem) resElem.textContent = mensaje;
+
+    // Deshabilitar botones al terminar
+    const btnPedir = document.getElementById("pedir");
+    const btnPlantar = document.getElementById("plantar");
+    if (btnPedir) btnPedir.disabled = true;
+    if (btnPlantar) btnPlantar.disabled = true;
+
     mostrarJugador();
     mostrarCrupier(true);
 
     // Guardar puntos
     if (mensaje.includes("Ganaste")) {
         let victoriasGuardadas = localStorage.getItem("record_blackjack") || 0;
-        let puntosASumar = 0;
-
-        if(mensaje.includes("Blackjack")) {
-            puntosASumar = 5; 
-        } else {
-            puntosASumar = 1; 
-        }
+        let puntosASumar = mensaje.includes("Blackjack") ? 5 : 1;
         let nuevoRecord = parseInt(victoriasGuardadas) + puntosASumar;
         localStorage.setItem("record_blackjack", nuevoRecord);
     }
 }
 
-
-// Botones
-document.getElementById("btn-pedir").addEventListener("click", function() {
+// Escuchadores de eventos para los botones del HTML
+document.getElementById("pedir").addEventListener("click", function() {
     pedirCarta();
 });
 
-document.getElementById("btn-plantarse").addEventListener("click", function() {
+document.getElementById("plantar").addEventListener("click", function() {
     plantarse();
 });
 
-document.getElementById("btn-reiniciar").addEventListener("click", function() {
-    iniciarJuego();
-});
-
-document.getElementById("btn-entrar").addEventListener("click", function() {
-    // oculta el juego 
-    document.getElementById("pantalla-inicio").classList.add("oculta");
-    // Muestra el juego
-    document.getElementById("zona-juego").classList.remove("oculta");
-    iniciarJuego();
-});
+// Inicia automáticamente al cargar la página
+iniciarJuego();

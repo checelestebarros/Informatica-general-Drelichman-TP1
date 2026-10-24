@@ -1,55 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trivia</title>
     <link rel="stylesheet" href="css/estilos.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Configuracion e Inicio -->
-    <div id="pantalla-inicio">
-        <!-- tema -->
-    <h3> tiempo restante: <span id="tiempo">10</span></h3>
-        <label for="select-categoria">Categoría:</label>
-        <select id="select-categoria">
-            <option value="25">Arte</option>
-            <option value="18">Informática</option>
-        </select>
-        
-        <!-- dificultad -->
-        <label for="select-dificultad">Dificultad:</label>
-        <select id="select-dificultad">
-            <option value="easy">Fácil</option>
-            <option value="medium">Medio</option>
-            <option value="hard">Difícil</option>
-        </select>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="dados.html">Dados</a>
+        <a href="trivia.html">Trivia</a>
+        <a href="blackjack.html">Blackjack</a>
+        <a href="puntajes.html">Puntajes</a>
+    </nav>
 
-        <button id="btn-iniciar">Comenzar Juego</button>
-    </div>
+    <main class="contenedor-principal">
+        <h1>Juego de Trivia</h1>
 
-    <hr>
+        <section class="tarjeta-seccion">
+            <h2>Configuración</h2>
+            <div class="form-control">
+                <label for="categoria">Categoría:</label>
+                <select id="categoria">
+                    <option value="">Cargando categorías...</option>
+                </select>
 
-    <div id="pantalla-juego">
-        <h2 id="pregunta"></h2>
-        <div id="opciones"></div>
-        <p id="resultado"></p>
-    </div>
+                <label for="dificultad">Dificultad:</label>
+                <select id="dificultad">
+                    <option value="easy">Fácil</option>
+                    <option value="medium">Media</option>
+                    <option value="hard">Difícil</option>
+                </select>
 
-     <nav> <a href="index.html">Inicio</a>
-            <a href="dados.html"></a>Dados</a>
-            <a href="blackjack.html">blackjack</a>
-            <a href="puntajes.html">Puntajes</a>
-            <a href="presentacion.html">Integrantes</a>
-     
-        </nav>
+                <button id="btn-comenzar">Comenzar Juego</button>
+            </div>
+        </section>
+
+        <section id="zona-juego" class="tarjeta-seccion oculto">
+            <div id="tiempo-restante">Tiempo restante: 10</div>
+            <div id="pregunta"></div>
+            <div id="opciones" class="opciones-container"></div>
+            <div id="resultado"></div>
+        </section>
+    </main>
+
     <script src="js/trivia.js"></script>
-   
-</head>
-<body>
-    
 </body>
 </html>
