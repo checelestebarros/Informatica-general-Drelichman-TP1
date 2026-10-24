@@ -15,7 +15,7 @@ body {
     padding-bottom: 40px;
 }
 
-/* NAVEGACIÓN FIJA EN LA PARTE SUPERIOR */
+/* NAVEGACIÓN FIJA */
 nav {
     position: sticky;
     top: 0;
@@ -46,9 +46,9 @@ nav a:hover {
     box-shadow: 0 0 8px #00ff66;
 }
 
-/* CONTENEDOR PRINCIPAL ACOTADO Y CENTRADO */
+/* CONTENEDOR PRINCIPAL */
 .contenedor-principal, main {
-    max-width: 700px;
+    max-width: 650px;
     width: 90%;
     margin: 30px auto;
     padding: 0 10px;
@@ -84,7 +84,7 @@ h3 {
 p, li, label, footer p {
     font-size: 0.6rem;
     color: #b0c4de;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     line-height: 1.8;
 }
 
@@ -100,20 +100,37 @@ section, .tarjeta-seccion {
     width: 100%;
 }
 
+/* ESTRUCTURA FORMULARIO TRIVIA ALINEADO Y CENTRADO */
+.form-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.campo-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+}
+
 /* BOTONES */
 button, .btn {
     font-family: 'Press Start 2P', monospace;
     background-color: #12141d;
     color: #00ff66;
     border: 2px solid #00ff66;
-    padding: 10px 14px;
+    padding: 10px 16px;
     margin: 8px;
     cursor: pointer;
     font-size: 0.65rem;
     border-radius: 5px;
     box-shadow: 0 3px 0 #005522;
     transition: all 0.1s ease;
-    display: inline-block;
 }
 
 button:hover, .btn:hover {
@@ -137,91 +154,22 @@ input[type="text"], select {
     background-color: #0d0e15;
     color: #00ff66;
     border: 2px solid #00ff66;
-    padding: 8px 10px;
+    padding: 8px 12px;
     font-size: 0.65rem;
     border-radius: 4px;
-    margin: 6px;
     outline: none;
     text-align: center;
-}
-
-select {
-    min-width: 220px;
+    width: 260px;
     max-width: 100%;
-}
-
-/* DADOS / GENERALA */
-.contenedor-nombres {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-.marcador {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #00ff66;
-    padding-bottom: 10px;
-}
-
-.zona-dados {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin: 20px 0;
-    flex-wrap: wrap;
-}
-
-.dado {
-    width: 55px;
-    height: 55px;
-    border: 2px solid #00ff66;
-    border-radius: 8px;
     cursor: pointer;
-    background-size: cover;
-    background-position: center;
 }
 
-.dado.retenido {
-    border-color: #ff0055;
-    box-shadow: 0 0 10px #ff0055;
+select option {
+    background-color: #0d0e15;
+    color: #00ff66;
 }
 
-/* BLACKJACK */
-.contenedor-cartas {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin: 12px 0;
-    min-height: 80px;
-}
-
-.carta {
-    width: 50px;
-    height: 72px;
-    background-color: #ffffff;
-    color: #000000;
-    border: 2px solid #ffffff;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 0.85rem;
-    font-weight: bold;
-}
-
-.carta.roja {
-    color: #e60000;
-}
-
-/* TRIVIA */
+/* TRIVIA OPCIONES */
 .opciones-container {
     display: flex;
     flex-direction: column;
@@ -240,6 +188,7 @@ select {
     text-align: center;
     font-size: 0.65rem;
     border-radius: 4px;
+    width: 100%;
 }
 
 .btn-opcion:hover {
@@ -247,7 +196,17 @@ select {
     color: #000;
 }
 
-/* UTILIDADES Y RESULTADOS */
+.correcto {
+    background-color: #00aa00 !important;
+    color: #fff !important;
+}
+
+.incorrecto {
+    background-color: #aa0000 !important;
+    color: #fff !important;
+}
+
+/* RESULTADOS Y UTILIDADES */
 #resultado {
     font-size: 0.7rem;
     margin-top: 15px;
