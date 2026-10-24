@@ -10,7 +10,7 @@ const categoriasDisponibles = [
     { id: 18, key: "compu", apiId: 18, name: "Computación" }
 ];
 
-// CARGAR CATEGORIAS
+// OPCIONES 
 function cargarCategorias() {
     const selectCategoria = document.getElementById("categoria");
     if (!selectCategoria) return;
@@ -18,14 +18,14 @@ function cargarCategorias() {
     selectCategoria.innerHTML = "";
     categoriasDisponibles.forEach(cat => {
         const opcion = document.createElement("option");
-        opcion.value = cat.key; // Asigna "compu" o "arte" como valor del option
-        opcion.dataset.apiId = cat.apiId; // Mantiene la referencia numérica para la API
+        opcion.value = cat.key;
+        opcion.dataset.apiId = cat.apiId;
         opcion.textContent = cat.name;
         selectCategoria.appendChild(opcion);
     });
 }
 
-// OBTENER PREGUNTAS DE LA API
+// LLAMAR A LA API PARA OBTENER PREGUNTAS
 async function obtenerPreguntas() {
     const selectCategoria = document.getElementById("categoria");
     const opcionSeleccionada = selectCategoria.options[selectCategoria.selectedIndex];
@@ -43,25 +43,26 @@ async function obtenerPreguntas() {
             indicePreguntaActual = 0;
             puntaje = 0;
             
+            // Oculta configuración y MUESTRA la zona de juego
             document.getElementById("zona-config").classList.add("oculto");
             document.getElementById("zona-juego").classList.remove("oculto");
             
             mostrarPregunta();
         } else {
-            alert("No se encontraron preguntas disponibles para esta configuración. Probá cambiando la dificultad.");
+            alert("No se encontraron preguntas para esta configuración. Probá otra dificultad.");
         }
     } catch (error) {
-        alert("Error al cargar las preguntas. Verificá tu conexión.");
+        alert("Error al obtener las preguntas. Comprobá tu conexión a internet.");
         console.error(error);
     }
 }
 
-// MOSRTAR PREGUNTA ACTUAL
+// MOSTRAR PREGUNTA ACTUAL
 function mostrarPregunta() {
     clearInterval(temporizador);
     tiempoRestante = 10;
 
-    // Limpia y oculta el cuadro de resultado
+    // Resetear el mensaje de resultado de la pregunta anterior
     const elementoResultado = document.getElementById("resultado");
     if (elementoResultado) {
         elementoResultado.textContent = "";
@@ -82,6 +83,7 @@ function mostrarPregunta() {
     const contenedorOpciones = document.getElementById("opciones");
     contenedorOpciones.innerHTML = "";
 
+    // Mezclar la respuesta correcta con las incorrectas
     let opciones = [...preguntaActual.incorrect_answers, preguntaActual.correct_answer];
     opciones.sort(() => Math.random() - 0.5);
 
@@ -96,7 +98,7 @@ function mostrarPregunta() {
     iniciarTemporizador();
 }
 
-// TEMPORIZADOR
+//  TEMPORIZADOR
 function iniciarTemporizador() {
     temporizador = setInterval(() => {
         tiempoRestante--;
@@ -107,10 +109,9 @@ function iniciarTemporizador() {
             clearInterval(temporizador);
             const preguntaActual = preguntas[indicePreguntaActual];
             
-            // Mostrar mensaje de tiempo agotado
             const elementoResultado = document.getElementById("resultado");
             if (elementoResultado) {
-                elementoResultado.innerHTML = `¡Tiempo agotado! La respuesta era: <strong>${preguntaActual.correct_answer}</strong>`;
+                elementoResultado.innerHTML = `¡Tiempo agotado! La respuesta correcta era: <strong>${preguntaActual.correct_answer}</strong>`;
                 elementoResultado.classList.remove("oculto");
             }
 
@@ -143,7 +144,6 @@ function verificarRespuesta(botonSeleccionado, seleccion, correcta) {
             elementoResultado.innerHTML = `Incorrecto. La respuesta era: <strong>${correcta}</strong>`;
         }
         
-        // Resalta en verde la opción que era correcta
         const botones = document.querySelectorAll(".btn-opcion");
         botones.forEach(btn => {
             if (btn.innerHTML === correcta) {
@@ -158,13 +158,13 @@ function verificarRespuesta(botonSeleccionado, seleccion, correcta) {
     }, 1800);
 }
 
-// DESHABILITAR BOTONES DURANTE LA MOSTRADA DEL RESULTADO
+// DESHABILITAR BOTONES MIENTRAS SE MUESTRA EL RESULTADO
 function deshabilitarBotones() {
     const botones = document.querySelectorAll(".btn-opcion");
     botones.forEach(btn => btn.disabled = true);
 }
 
-// FINALIZAR JUEGO Y GUARDAR RECORD
+// FINALIZAR LA PARTIDA Y GUARDAR EL RÉCORD
 function finalizarJuego() {
     clearInterval(temporizador);
     
@@ -184,10 +184,10 @@ function finalizarJuego() {
     }
 }
 
-// ESCUCHAR EVENTO DE INICIO DE JUEGO
+// ESCUCHAR EVENTO DEL BOTÓN DE INICIO
 document.getElementById("btn-comenzar").addEventListener("click", () => {
     obtenerPreguntas();
 });
 
-// Cargar menu desplegable
+// CARGAR SELECTOR DE CATEGORÍAS
 cargarCategorias();
