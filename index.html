@@ -3,68 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plataforma Multijuego - TP1 Informática</title>
+    <title>Plataforma Multijuego Web</title>
     <link rel="stylesheet" href="css/estilos.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Plataforma Multijuego Web</h1>
-        <nav>
-            <a href="index.html">Inicio</a>
-            <a href="dados.html">Dados</a>
-            <a href="trivia.html">Trivia</a>
-            <a href="blackjack.html">Blackjack</a>
-            <a href="puntajes.html">Puntajes</a>
-            <a href="presentacion.html">Integrantes</a>
-        </nav>
-    </header>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="dados.html">Dados</a>
+        <a href="trivia.html">Trivia</a>
+        <a href="blackjack.html">Blackjack</a>
+        <a href="puntajes.html">Puntajes</a>
+        <a href="presentacion.html">Integrantes</a>
+    </nav>
 
-    <main>
-        <section id="presentacion">
+    <main class="contenedor-principal">
+        <h1>Plataforma Multijuego Web</h1>
+
+        <section class="tarjeta-seccion">
             <h2>Bienvenido/a a la Sala de Juegos</h2>
             <p>
                 Esta plataforma web interactiva fue desarrollada como parte del Trabajo Práctico N° 1 
-                para la materia <strong>Informática General (Cátedra Drelichman - 2026)</strong>.
+                para la materia Informática General (Cátedra Drelichman - 2026).
             </p>
         </section>
 
-      
-
-        <section id="resumen-juegos">
+        <section class="tarjeta-seccion">
             <h2>Nuestros Juegos y Reglas</h2>
+            
+            <h3>Generala (Multijugador)</h3>
+            <p><strong>Objetivo:</strong> Competir contra otro jugador en la misma pantalla para obtener la suma de puntos más alta.</p>
+            <a href="dados.html" class="btn">Jugar a la Generala</a>
 
-            <article class="tarjeta-juego">
-                <h3>Generala (Multijugador)</h3>
-                <p><strong>Objetivo:</strong> Competir contra otro jugador en la misma pantalla para obtener la suma de puntos más alta.</p>
-                <a href="dados.html">Jugar a la Generala</a>
-            </article>
+            <br><br>
 
-            <br>
+            <h3>Trivia (OpenTDB)</h3>
+            <p><strong>Objetivo:</strong> Responder preguntas de opción múltiple antes de que se agote el tiempo.</p>
+            <a href="trivia.html" class="btn">Jugar a la Trivia</a>
 
-            <article class="tarjeta-juego">
-                <h3>Trivia (OpenTDB)</h3>
-                <p><strong>Objetivo:</strong> Responder preguntas de opción múltiple antes de que se agote el tiempo.</p>
-                <a href="trivia.html">Jugar a la Trivia</a>
-            </article>
+            <br><br>
 
-            <br>
-
-            <article class="tarjeta-juego">
-                <h3>Blackjack (Veintiuno)</h3>
-                <p><strong>Objetivo:</strong> Sumar 21 puntos o quedar más cerca que la banca sin pasarse.</p>
-                <a href="blackjack.html">Jugar al Blackjack</a>
-            </article>
+            <h3>Blackjack (Veintiuno)</h3>
+            <p><strong>Objetivo:</strong> Sumar 21 puntos o quedar más cerca que la banca sin pasarse.</p>
+            <a href="blackjack.html" class="btn">Jugar al Blackjack</a>
         </section>
     </main>
 
     <footer>
         <p>Trabajo Práctico 1 - Grupo 18 | Informática General 2026</p>
     </footer>
-
-    
-    <script src="js/trivia.js"></script>
 </body>
 </html>

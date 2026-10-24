@@ -5,71 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generala</title>
     <link rel="stylesheet" href="css/estilos.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Generala</h1>
-        <nav>
-            <a href="index.html">Inicio</a>
-            <a href="generala.html">Generala</a>
-            <a href="blackjack.html">Blackjack</a>
-            <a href="puntajes.html">Puntajes</a>
-            <a href="trivia.html">Trivia</a>
-            <a href="presentacion.html">Integrantes</a>
-        </nav>
-    </header>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="dados.html">Dados</a>
+        <a href="trivia.html">Trivia</a>
+        <a href="blackjack.html">Blackjack</a>
+        <a href="puntajes.html">Puntajes</a>
+        <a href="presentacion.html">Integrantes</a>
+    </nav>
 
-    <main>
-        <!-- nombres -->
-         <div id="ingreso-nombres">
-            <label>Nombre J1: <input type="text" id="input-j1" value="Jugador 1"></label>
-            <label>Nombre J2: <input type="text" id="input-j2" value="Jugador 2"></label>
-        </div>
+    <main class="contenedor-principal">
+        <h1>Juego de Generala</h1>
 
-        <br>
-
-        <div>
-            <div>
-                <h2 id="nombre-display-j1">Jugador 1</h2>
-                <p>Puntos: <span id="puntos-j1">0</span></p>
+        <section class="tarjeta-seccion">
+            <div class="contenedor-nombres">
+                <div>
+                    <label>Nombre J1:</label>
+                    <input type="text" id="nombre-j1" value="Jugador 1">
+                </div>
+                <div>
+                    <label>Nombre J2:</label>
+                    <input type="text" id="nombre-j2" value="Jugador 2">
+                </div>
             </div>
 
-            <div>
-                <h2 id="nombre-display-j2">Jugador 2</h2>
-                <p>Puntos: <span id="puntos-j2">0</span></p>
+            <div class="marcador">
+                <div>
+                    <h3 id="label-j1">Jugador 1</h3>
+                    <p id="puntos-j1">Puntos: 0</p>
+                </div>
+                <div>
+                    <h3 id="label-j2">Jugador 2</h3>
+                    <p id="puntos-j2">Puntos: 0</p>
+                </div>
             </div>
-        </div>
-        <!--tablero dividido -->
-        <div id="pantalla-multijugador" style="display: flex; justify-content: space-around;">
-            <div id="panel-j1" class="panel-jugador activo">
-                <h2>Jugador 1</h2>
-                <p>Puntos: <span id="puntos-j1">0</span></p>
-            </div>
 
-            <div id="panel-j2" class="panel-jugador">
-                <h2>Jugador 2</h2>
-                <p>Puntos: <span id="puntos-j2">0</span></p>
-            </div>
-        </div>
+            <p id="info-turno">Turno actual: Jugador 1</p>
+            <p id="info-tiradas">Tiradas: 0 / 3</p>
 
-      
+            <div id="zona-dados" class="zona-dados"></div>
 
-        <p id="indicador-turno"> Turno actual: <strong>Jugador 1</strong></p>
-        <p id="tiradas">Tiradas: 0 / 3</p>
-
-        <!--contenedor donde se insertan los dados -->
-        <div id="dados"></div>
-
-        <br>
-        <button id="btnTirar">Tirar Dados</button>
-        <button id="btnReiniciar">Nueva Partida</button>
-
-        <h3 id="mensaje"></h3>
+            <button id="btn-tirar">Tirar Dados</button>
+            <button id="btn-nueva-partida">Nueva Partida</button>
+        </section>
     </main>
 
-   <script src="js/dados.js"></script>
+    <script src="js/dados.js"></script>
 </body>
 </html>

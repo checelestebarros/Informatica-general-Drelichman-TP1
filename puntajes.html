@@ -3,37 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>puntajes</title>
+    <title>Puntajes</title>
     <link rel="stylesheet" href="css/estilos.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Puntajes</h1>
-    <div id="contenedor-records">
-            <div class="tarjeta-record">
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="dados.html">Dados</a>
+        <a href="trivia.html">Trivia</a>
+        <a href="blackjack.html">Blackjack</a>
+        <a href="puntajes.html">Puntajes</a>
+        <a href="presentacion.html">Integrantes</a>
+    </nav>
+
+    <main class="contenedor-principal">
+        <h1>Tabla de Puntajes</h1>
+
+        <section class="tarjeta-seccion">
+            <h2>Mejores Puntuaciones</h2>
+            
+            <div style="margin: 20px 0;">
                 <h3>Trivia</h3>
-                <p>Récord actual: <span id="record-trivia">0</span></p>
+                <p id="record-trivia">Récord actual: 0 pts</p>
             </div>
 
-            <div class="tarjeta-record">
+            <div style="margin: 20px 0;">
                 <h3>Generala</h3>
-                <p>Récord actual: <span id="record-generala">0</span></p>
+                <p id="record-dados">Récord actual: 0 pts</p>
             </div>
-            <div class="tarjeta-record">
+
+            <div style="margin: 20px 0;">
                 <h3>Blackjack</h3>
-                <p>Récord actual: <span id="record-blackjack">0</span></p>
+                <p id="record-blackjack">Récord actual: 0 pts</p>
             </div>
-    </div>
 
-    <button id="btn-borrar-records">Borrar récords</button>
+            <button id="btn-borrar-records">Borrar récords</button>
+        </section>
+    </main>
 
-    <nav><a href="index.html">Inicio</a>
-            <a href="dados.html">Dados</a>
-            <a href="blackjack.html">Blackjack</a>
-            <a href="trivia.html">Trivia</a>
-            <a href="presentacion.html">Integrantes</a></nav>
-            <script src="js/puntajes.js"></script>
+    <script src="js/puntajes.js"></script>
 </body>
 </html>

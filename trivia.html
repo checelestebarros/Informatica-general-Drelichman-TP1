@@ -13,14 +13,15 @@
         <a href="trivia.html">Trivia</a>
         <a href="blackjack.html">Blackjack</a>
         <a href="puntajes.html">Puntajes</a>
+        <a href="presentacion.html">Integrantes</a>
     </nav>
 
     <main class="contenedor-principal">
         <h1>Juego de Trivia</h1>
 
-        <section class="tarjeta-seccion">
+        <section id="zona-config" class="tarjeta-seccion">
             <h2>Configuración</h2>
-            <div class="form-control">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
                 <label for="categoria">Categoría:</label>
                 <select id="categoria">
                     <option value="">Cargando categorías...</option>
@@ -38,8 +39,8 @@
         </section>
 
         <section id="zona-juego" class="tarjeta-seccion oculto">
-            <div id="tiempo-restante">Tiempo restante: 10</div>
-            <div id="pregunta"></div>
+            <div id="tiempo-restante" style="margin-bottom: 15px;">Tiempo restante: 10</div>
+            <h3 id="pregunta" style="margin-bottom: 15px;"></h3>
             <div id="opciones" class="opciones-container"></div>
             <div id="resultado"></div>
         </section>
