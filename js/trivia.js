@@ -61,6 +61,13 @@ function mostrarPregunta() {
     clearInterval(temporizador);
     tiempoRestante = 10;
 
+    // Limpia y oculta el cuadro de resultado
+    const elementoResultado = document.getElementById("resultado");
+    if (elementoResultado) {
+        elementoResultado.textContent = "";
+        elementoResultado.classList.add("oculto");
+    }
+
     const elementoTiempo = document.getElementById("tiempo-restante");
     if (elementoTiempo) elementoTiempo.textContent = `Tiempo restante: ${tiempoRestante}`;
 
@@ -82,7 +89,7 @@ function mostrarPregunta() {
         const boton = document.createElement("button");
         boton.classList.add("btn-opcion");
         boton.innerHTML = opcionTexto;
-        boton.addEventListener("click", () => verificarRespuesta(opcionTexto, preguntaActual.correct_answer));
+        boton.addEventListener("click", () => verificarRespuesta(boton, opcionTexto, preguntaActual.correct_answer));
         contenedorOpciones.appendChild(boton);
     });
 
@@ -98,22 +105,63 @@ function iniciarTemporizador() {
 
         if (tiempoRestante <= 0) {
             clearInterval(temporizador);
-            indicePreguntaActual++;
-            mostrarPregunta();
+            const preguntaActual = preguntas[indicePreguntaActual];
+            
+            // Mostrar mensaje de tiempo agotado
+            const elementoResultado = document.getElementById("resultado");
+            if (elementoResultado) {
+                elementoResultado.innerHTML = `¡Tiempo agotado! La respuesta era: <strong>${preguntaActual.correct_answer}</strong>`;
+                elementoResultado.classList.remove("oculto");
+            }
+
+            deshabilitarBotones();
+            setTimeout(() => {
+                indicePreguntaActual++;
+                mostrarPregunta();
+            }, 1800);
         }
     }, 1000);
 }
 
 // VERIFICAR RESPUESTA
-function verificarRespuesta(seleccion, correcta) {
+function verificarRespuesta(botonSeleccionado, seleccion, correcta) {
     clearInterval(temporizador);
+    deshabilitarBotones();
+
+    const elementoResultado = document.getElementById("resultado");
+    if (elementoResultado) {
+        elementoResultado.classList.remove("oculto");
+    }
 
     if (seleccion === correcta) {
         puntaje += 10;
+        botonSeleccionado.classList.add("correcto");
+        if (elementoResultado) elementoResultado.textContent = "¡Correcto! +10 puntos";
+    } else {
+        botonSeleccionado.classList.add("incorrecto");
+        if (elementoResultado) {
+            elementoResultado.innerHTML = `Incorrecto. La respuesta era: <strong>${correcta}</strong>`;
+        }
+        
+        // Resalta en verde la opción que era correcta
+        const botones = document.querySelectorAll(".btn-opcion");
+        botones.forEach(btn => {
+            if (btn.innerHTML === correcta) {
+                btn.classList.add("correcto");
+            }
+        });
     }
 
-    indicePreguntaActual++;
-    mostrarPregunta();
+    setTimeout(() => {
+        indicePreguntaActual++;
+        mostrarPregunta();
+    }, 1800);
+}
+
+// DESHABILITAR BOTONES DURANTE LA MOSTRADA DEL RESULTADO
+function deshabilitarBotones() {
+    const botones = document.querySelectorAll(".btn-opcion");
+    botones.forEach(btn => btn.disabled = true);
 }
 
 // FINALIZAR JUEGO Y GUARDAR RECORD
@@ -125,7 +173,10 @@ function finalizarJuego() {
     document.getElementById("tiempo-restante").textContent = "";
 
     const resultadoElem = document.getElementById("resultado");
-    resultadoElem.textContent = `Tu puntaje final fue: ${puntaje} pts`;
+    if (resultadoElem) {
+        resultadoElem.classList.remove("oculto");
+        resultadoElem.textContent = `Tu puntaje final fue: ${puntaje} pts`;
+    }
 
     let recordGuardado = localStorage.getItem("record_trivia") || 0;
     if (puntaje > parseInt(recordGuardado)) {
@@ -133,7 +184,7 @@ function finalizarJuego() {
     }
 }
 
-//  ESCUCHAR EVENTO DE INICIO DE JUEGO
+// ESCUCHAR EVENTO DE INICIO DE JUEGO
 document.getElementById("btn-comenzar").addEventListener("click", () => {
     obtenerPreguntas();
 });
