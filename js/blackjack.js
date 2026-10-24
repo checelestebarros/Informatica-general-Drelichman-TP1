@@ -75,7 +75,7 @@ function renderizarCartas(contenedor, mano, ocultarSegunda = false) {
     });
 }
 
-// Evento para validar e iniciar
+// Evento para validar e iniciar // alerta en caso de que no haya nombre 
 btnIniciar.addEventListener("click", () => {
     const nombre = inputNombre.value.trim();
     if (nombre === "") {
