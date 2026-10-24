@@ -7,7 +7,11 @@
 }
 
 body {
-    background-color: #0d0e15;
+    background-image: url('../img/bg.jpeg');
+     background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
     color: #00ff66;
     font-family: 'Press Start 2P', monospace;
     text-align: center;
@@ -61,14 +65,14 @@ nav a:hover {
 h1 {
     font-size: 1.1rem;
     margin: 20px 0;
-    text-shadow: 2px 2px 0px #005522;
+    text-shadow: 2px 2px 0px #4800ff;
     text-align: center;
     width: 100%;
 }
 
 h2 {
     font-size: 0.85rem;
-    color: #ffffff;
+    color: #4800ff;
     margin-bottom: 14px;
     text-shadow: 1px 1px 0px #00ff66;
     text-align: center;
@@ -76,7 +80,7 @@ h2 {
 
 h3 {
     font-size: 0.75rem;
-    color: #00ff66;
+    color: #4800ff;
     margin-bottom: 10px;
     text-align: center;
 }
@@ -180,7 +184,7 @@ select option {
 }
 
 .btn-opcion {
-    background-color: #0d0e15;
+    background-color: #250e79;
     color: #00ff66;
     border: 1px solid #00ff66;
     padding: 10px;
@@ -192,12 +196,12 @@ select option {
 }
 
 .btn-opcion:hover {
-    background-color: #00ff66;
+    background-color: #250e79;
     color: #000;
 }
-
+ /* aca uso !important darle la máxima prioridad a una propiedad sobre cualquier otra regla de estilo. */
 .correcto {
-    background-color: #00aa00 !important;
+    background-color: #00aa00 !important; 
     color: #fff !important;
 }
 
@@ -222,6 +226,7 @@ select option {
 }
 
 footer {
+    
     margin-top: 30px;
     padding: 15px;
     border-top: 1px solid #00ff66;
@@ -240,4 +245,48 @@ footer {
     line-height: 70px; 
     font-size: 1.2rem;
     background-color: #0d1117;
+}
+
+/* Layout principal para dividir el juego de las reglas */
+.layout-juego {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.area-juego {
+    flex: 2;
+    background-color: #0d1117;
+    border: 2px solid #00ff66;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.sidebar-reglas {
+    flex: 1;
+    background-color: #0d1117;
+    border: 2px solid #00ff66;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 0.9rem;
+    color: #00ff66;
+}
+
+.sidebar-reglas h3 {
+    margin-top: 0;
+    text-align: center;
+    border-bottom: 1px solid #00ff66;
+    padding-bottom: 5px;
+}
+
+/* Estilos para inputs deshabilitados */
+button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    border-color: #555;
+    color: #888;
 }
