@@ -185,7 +185,12 @@ function reiniciar() {
 }
 
 // asigno de eventos e inicialización
-btnTirar.onclick = tirarDados;
-btnReiniciar.onclick = reiniciar;
+document.addEventListener("DOMContentLoaded", () => {
+  const btnTirar = document.getElementById("btn-tirar");
+  const btnNueva = document.getElementById("btn-nueva");
+
+  if (btnTirar) btnTirar.addEventListener("click", tirarDados);
+  if (btnNueva) btnNueva.addEventListener("click", reiniciarJuego);
+});
 
 mostrarDados();
