@@ -3,6 +3,7 @@ let indicePreguntaActual = 0;
 let puntaje = 0;
 let tiempoRestante = 10;
 let temporizador;
+let nombreJugadorTrivia = "";
 
 // CATEGORIAS
 const categoriasDisponibles = [
@@ -178,12 +179,12 @@ function finalizarJuego() {
         resultadoElem.textContent = `Tu puntaje final fue: ${puntaje} pts`;
     }
 
-    let recordGuardado = localStorage.getItem("record_trivia") || 0;
-    if (puntaje > parseInt(recordGuardado)) {
+    let recordGuardado = parseInt(localStorage.getItem("record_trivia")) || 0;
+    if (puntaje > recordGuardado) {
         localStorage.setItem("record_trivia", puntaje);
+        localStorage.setItem("record_trivia_jugador", nombreJugadorTrivia); // <--- Guardamos el nombre del récord
     }
 }
-
 // ESCUCHAR EVENTO DEL BOTÓN DE INICIO
 document.getElementById("btn-comenzar").addEventListener("click", () => {
     // Validar que el nombre no esté vacío
@@ -193,8 +194,9 @@ document.getElementById("btn-comenzar").addEventListener("click", () => {
         alert("¡Alto ahí! Por favor ingresa tu nombre para poder jugar.");
         return; 
     }
-
+nombreJugadorTrivia = nombreInput; // Guardamos el nombre ingresado para mostrarlo en puntajes dsp
     obtenerPreguntas();
+   
 });
 // CARGAR SELECTOR DE CATEGORÍAS
 cargarCategorias();

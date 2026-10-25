@@ -1,15 +1,18 @@
 document.addEventListener("DOMContentLoaded", function() {
   // recuperamos los records almacenados
   const recordTrivia = localStorage.getItem("record_trivia") || 0;
+  const recordJugadorTrivia = localStorage.getItem("record_trivia_jugador") || ""; 
   const recordDados = localStorage.getItem("record_dados") || 0; 
   const recordJugadorDados = localStorage.getItem("record_jugador") || "";
   const recordCartas = localStorage.getItem("record_blackjack") || 0;
 
-  // mostramos los puntajes de trivia y blackjack
+  // mostramos el puntaje de trivia incluyendo el nombre del jugador si existe
   const elemTrivia = document.getElementById("record-trivia");
+  if(elemTrivia) {
+    elemTrivia.textContent = recordJugadorTrivia !== "" ? recordTrivia + " pts (" + recordJugadorTrivia + ")" : recordTrivia + " pts";
+  }
+
   const elemCartas = document.getElementById("record-blackjack");
-  
-  if(elemTrivia) elemTrivia.textContent = recordTrivia + " pts";
   if(elemCartas) elemCartas.textContent = recordCartas + " pts";
 
   // leemos la ultima partida guardada de la generala con los datos de ambos jugadores
@@ -27,17 +30,18 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  // mostramos el record individual más alto siempre
+  // mostramos el record individual más alto de dados siempre
   const elemRecordHistorial = document.getElementById("record-generala-historial");
   if (elemRecordHistorial) {
     elemRecordHistorial.textContent = recordJugadorDados !== "" ? recordDados + " pts (" + recordJugadorDados + ")" : recordDados + " pts";
   }
 
-  // evento para borrar todos los datos guardados
+  // evento para borrar todos los datos guardados (incluyendo el nombre de trivia)
   const btnBorrar = document.getElementById("btn-borrar-records");
   if (btnBorrar) {
     btnBorrar.addEventListener("click", function() {
       localStorage.removeItem("record_trivia");
+      localStorage.removeItem("record_trivia_jugador");
       localStorage.removeItem("record_dados");
       localStorage.removeItem("record_jugador");
       localStorage.removeItem("ultima_partida_generala");

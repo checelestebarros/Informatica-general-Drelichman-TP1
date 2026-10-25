@@ -19,7 +19,7 @@
     <main class="contenedor-principal">
         <h1>Juego de Trivia</h1>
 
-       <section id="zona-config" class="tarjeta-seccion">
+        <section id="zona-config" class="tarjeta-seccion">
             <h2>Configuración</h2>
             <div class="form-control">
                 
@@ -44,6 +44,14 @@
 
                 <button id="btn-comenzar">Comenzar Juego</button>
             </div>
+        </section>
+
+        <!-- ESTO ES LO QUE FALTABA EN TU HTML -->
+        <section id="zona-juego" class="tarjeta-seccion oculto">
+            <div id="tiempo-restante">Tiempo restante: 10</div>
+            <h3 id="pregunta"></h3>
+            <div id="opciones" class="opciones-container"></div>
+            <div id="resultado" class="oculto"></div>
         </section>
     </main>
 
