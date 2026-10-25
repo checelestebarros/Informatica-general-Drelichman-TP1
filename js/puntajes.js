@@ -6,8 +6,11 @@ document.addEventListener("DOMContentLoaded", function() {
   const recordCartas = localStorage.getItem("record_blackjack") || 0;
 
   // mostramos los puntajes de trivia y blackjack
-  document.getElementById("record-trivia").textContent = recordTrivia + " pts";
-  document.getElementById("record-blackjack").textContent = recordCartas + " pts";
+  const elemTrivia = document.getElementById("record-trivia");
+  const elemCartas = document.getElementById("record-blackjack");
+  
+  if(elemTrivia) elemTrivia.textContent = recordTrivia + " pts";
+  if(elemCartas) elemCartas.textContent = recordCartas + " pts";
 
   // leemos la ultima partida guardada de la generala con los datos de ambos jugadores
   const ultimaPartidaGenerala = localStorage.getItem("ultima_partida_generala");
@@ -15,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function() {
   if (ultimaPartidaGenerala) {
     const datos = JSON.parse(ultimaPartidaGenerala);
 
-    // opcion 1: si tienes elementos separados en el html para cada jugador
     const elemJ1 = document.getElementById("puntos-j1-generala");
     const elemJ2 = document.getElementById("puntos-j2-generala");
 
@@ -23,30 +25,26 @@ document.addEventListener("DOMContentLoaded", function() {
       elemJ1.textContent = datos.jugador1.nombre + ": " + datos.jugador1.puntos + " pts";
       elemJ2.textContent = datos.jugador2.nombre + ": " + datos.jugador2.puntos + " pts";
     }
+  }
 
-    // opcion 2: mostramos los puntajes de ambos jugadores juntos en el elemento principal
-    const elemGenerala = document.getElementById("record-generala");
-    if (elemGenerala) {
-      elemGenerala.textContent = datos.jugador1.nombre + " (" + datos.jugador1.puntos + " pts) - " + datos.jugador2.nombre + " (" + datos.jugador2.puntos + " pts)";
-    }
-
-  } else {
-    // si no hay partida guardada mostramos el record individual o 0
-    const elemGenerala = document.getElementById("record-generala");
-    if (elemGenerala) {
-      elemGenerala.textContent = recordJugadorDados !== "" ? recordDados + " pts (" + recordJugadorDados + ")" : recordDados + " pts";
-    }
+  // mostramos el record individual más alto siempre
+  const elemRecordHistorial = document.getElementById("record-generala-historial");
+  if (elemRecordHistorial) {
+    elemRecordHistorial.textContent = recordJugadorDados !== "" ? recordDados + " pts (" + recordJugadorDados + ")" : recordDados + " pts";
   }
 
   // evento para borrar todos los datos guardados
-  document.getElementById("btn-borrar-records").addEventListener("click", function() {
-    localStorage.removeItem("record_trivia");
-    localStorage.removeItem("record_dados");
-    localStorage.removeItem("record_jugador");
-    localStorage.removeItem("ultima_partida_generala");
-    localStorage.removeItem("record_blackjack");
-    location.reload(); // recargamos la pagina para actualizar la vista en 0
-  });
+  const btnBorrar = document.getElementById("btn-borrar-records");
+  if (btnBorrar) {
+    btnBorrar.addEventListener("click", function() {
+      localStorage.removeItem("record_trivia");
+      localStorage.removeItem("record_dados");
+      localStorage.removeItem("record_jugador");
+      localStorage.removeItem("ultima_partida_generala");
+      localStorage.removeItem("record_blackjack");
+      location.reload(); // recargamos la pagina para actualizar la vista en 0
+    });
+  }
 });
 
 // funcion para guardar el puntaje si supera el record previo

@@ -250,10 +250,12 @@ footer {
 /* Layout principal para dividir el juego de las reglas */
 .layout-juego {
     display: flex;
+    flex-direction: row !important; /* Fuerza a que se pongan lado a lado */
     gap: 20px;
     justify-content: center;
     align-items: flex-start;
-    max-width: 1000px;
+    max-width: 900px !important; 
+    width: 95% !important;
     margin: 0 auto;
     padding: 10px;
 }
@@ -289,4 +291,13 @@ button:disabled {
     cursor: not-allowed;
     border-color: #555;
     color: #888;
+}
+
+/* DADOS GUARDADOS / SELECCIONADOS */
+.guardado {
+    background-color: #4800ff !important; 
+    border-color: #ffffff !important;     
+    box-shadow: 0 0 12px #4800ff !important; 
+    transform: scale(0.92); 
+    opacity: 0.8;
 }

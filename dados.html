@@ -18,11 +18,11 @@
       <a href="presentacion.html">Integrantes</a>
     </nav>
   </header>
-
-  <main class="contenedor-principal">
-    <h1>Juego de Dados</h1>
-    
-    <section class="tarjeta-seccion">
+<main class="layout-juego">
+    <!-- COLUMNA IZQUIERDA: JUEGO -->
+    <section class="area-juego tarjeta-seccion" style="margin-bottom: 0;">
+      <h1>Juego de Dados</h1>
+      
       <div class="form-control">
         <div class="campo-form">
           <label for="input-j1">Nombre J1:</label>
@@ -48,10 +48,9 @@
         <p id="tiradas">Tiradas: 0 / 3</p>
       </div>
 
-      <!-- Acá van a aparecer tus 5 dados dinámicamente -->
+      <!-- Contenedor de dados -->
       <div id="dados" style="margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;"></div>
       
-      <!-- Mensajes de fin de turno/partida -->
       <p id="mensaje" style="color: #00ff66; margin-bottom: 15px; font-size: 0.75rem;"></p>
 
       <div>
@@ -59,6 +58,17 @@
         <button id="btnReiniciar" class="btn">Nueva Partida</button>
       </div>
     </section>
+
+    <!-- COLUMNA DERECHA: REGLAS -->
+    <aside class="sidebar-reglas">
+      <h3>Reglas de los dados</h3>
+      <br>
+      <p>- Para comenzar ambos jugadores deben ingresar sus nombres.</p>
+      <p>- Tenes 3 tiradas por turno.</p>
+      <p>- Hace clic en un dado para retenerlo para la siguiente tirada, sumas los puntos de los valores de los dados guardados.</p>
+      <p>- Si los 5 dados son iguales, sumas 20 puntos extra.</p>
+      <p>- Gana quien tenga más puntos al final del turno.</p>
+    </aside>
   </main>
 </body>
 </html>

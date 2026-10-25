@@ -37,7 +37,7 @@ function mostrarDados() {
     let imagenDado = document.createElement("img");
     imagenDado.src = "img/dado" + numeroCara + ".png"; 
     imagenDado.alt = "Dado " + numeroCara;
-    imagenDado.width = 60; 
+    imagenDado.width = 40; 
 
     dadoBoton.appendChild(imagenDado);
 
@@ -147,6 +147,16 @@ function finalizarTurno() {
 
 // genera numeros aleatorios (1-6) para los dados que NO esten guardados
 function tirarDados() {
+  // VALIDACION DE NOMBRE 
+  let valJ1 = document.getElementById("input-j1").value.trim();
+  let valJ2 = document.getElementById("input-j2").value.trim();
+
+  if (valJ1 === "" || valJ2 === "") {
+    alert("¡Alto ahí! Por favor ingresen los nombres de ambos jugadores para poder jugar.");
+    return; 
+  }
+
+  // tiradas
   if (tiradas === 3) {
     finalizarTurno();
     return;
