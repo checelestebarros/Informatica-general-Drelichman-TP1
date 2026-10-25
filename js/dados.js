@@ -1,11 +1,10 @@
-// Variables del juego
 let puntajeJ1 = 0;
 let puntajeJ2 = 0;
-let turnoActual = 1; // 1 para Jugador 1, 2 para Jugador 2
-let tiradasActuales = 0;
+let turnoActual = 1;
+let tiradas = 0;
 const MAX_TIRADAS = 3;
 
-// Obtener nombres de jugadores
+// Declaramos las funciones tradicionales con 'function' para que el HTML (onclick) las reconozca siempre
 function obtenerNombreJ1() {
   const inputJ1 = document.getElementById("nombreJ1");
   return inputJ1 && inputJ1.value.trim() !== "" ? inputJ1.value : "Jugador 1";
@@ -16,7 +15,6 @@ function obtenerNombreJ2() {
   return inputJ2 && inputJ2.value.trim() !== "" ? inputJ2.value : "Jugador 2";
 }
 
-// Actualizar la interfaz con nombres y puntajes
 function actualizarInterfaz() {
   const elNombreJ1 = document.getElementById("nombreJugador1");
   const elNombreJ2 = document.getElementById("nombreJugador2");
@@ -34,13 +32,11 @@ function actualizarInterfaz() {
     elTurno.innerText = turnoActual === 1 ? obtenerNombreJ1() : obtenerNombreJ2();
   }
   if (elTiradas) {
-    elTiradas.innerText = tiradasActuales;
+    elTiradas.innerText = tiradas;
   }
 }
 
-// Mostrar dados en el contenedor
 function mostrarDados(dados) {
-  // Busca por clase .resultado-dados como tenés en el HTML original
   const contenedor = document.querySelector(".resultado-dados");
   if (!contenedor) return;
 
@@ -55,10 +51,9 @@ function mostrarDados(dados) {
   });
 }
 
-// Función principal para tirar dados
 function tirarDados() {
-  if (tiradasActuales >= MAX_TIRADAS) {
-    alert("Ya completaste tus 3 tiradas. Turno finalizado.");
+  if (tiradas >= MAX_TIRADAS) {
+    alert("Ya completaste las 3 tiradas de tu turno.");
     return;
   }
 
@@ -68,7 +63,7 @@ function tirarDados() {
 
   mostrarDados([dado1, dado2]);
 
-  tiradasActuales++;
+  tiradas++;
 
   if (turnoActual === 1) {
     puntajeJ1 += suma;
@@ -78,24 +73,22 @@ function tirarDados() {
 
   actualizarInterfaz();
 
-  if (tiradasActuales === MAX_TIRADAS) {
+  if (tiradas === MAX_TIRADAS) {
     setTimeout(finalizarTurno, 300);
   }
 }
 
-// Finalizar turno o juego
 function finalizarTurno() {
   if (turnoActual === 1) {
     turnoActual = 2;
-    tiradasActuales = 0;
+    tiradas = 0;
     actualizarInterfaz();
-    alert(`Turno de ${obtenerNombreJ1()} finalizado. Turno de ${obtenerNombreJ2()}`);
+    alert(`Turno de ${obtenerNombreJ1()} finalizado. Ahora le toca a ${obtenerNombreJ2()}`);
   } else {
     determinarGanador();
   }
 }
 
-// Determinar ganador al finalizar ambos turnos
 function determinarGanador() {
   const n1 = obtenerNombreJ1();
   const n2 = obtenerNombreJ2();
@@ -112,12 +105,11 @@ function determinarGanador() {
   alert(msj);
 }
 
-// Reiniciar partida
 function reiniciarJuego() {
   puntajeJ1 = 0;
   puntajeJ2 = 0;
   turnoActual = 1;
-  tiradasActuales = 0;
+  tiradas = 0;
 
   const contenedor = document.querySelector(".resultado-dados");
   if (contenedor) contenedor.innerHTML = "";
@@ -125,15 +117,10 @@ function reiniciarJuego() {
   actualizarInterfaz();
 }
 
-// Inicialización de eventos al cargar el DOM
+// Escuchadores de eventos cuando el DOM está listo
 document.addEventListener("DOMContentLoaded", () => {
-  const btnTirar = document.getElementById("btnTirar");
-  const btnNueva = document.getElementById("btnNueva");
   const inputJ1 = document.getElementById("nombreJ1");
   const inputJ2 = document.getElementById("nombreJ2");
-
-  if (btnTirar) btnTirar.addEventListener("click", tirarDados);
-  if (btnNueva) btnNueva.addEventListener("click", reiniciarJuego);
 
   if (inputJ1) inputJ1.addEventListener("input", actualizarInterfaz);
   if (inputJ2) inputJ2.addEventListener("input", actualizarInterfaz);
