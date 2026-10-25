@@ -1,13 +1,23 @@
 document.addEventListener("DOMContentLoaded", function() {
   // recuperamos los records almacenados
   const recordTrivia = localStorage.getItem("record_trivia") || 0;
+  const recordJugadorTrivia = localStorage.getItem("record_trivia_jugador") || ""; 
   const recordDados = localStorage.getItem("record_dados") || 0; 
   const recordJugadorDados = localStorage.getItem("record_jugador") || "";
   const recordCartas = localStorage.getItem("record_blackjack") || 0;
+  const recordJugadorCartas = localStorage.getItem("record_blackjack_jugador") || ""; // Recuperamos el nombre del Blackjack
 
-  // mostramos los puntajes de trivia y blackjack
-  document.getElementById("record-trivia").textContent = recordTrivia + " pts";
-  document.getElementById("record-blackjack").textContent = recordCartas + " pts";
+  // mostramos el puntaje de trivia incluyendo el nombre del jugador si existe
+  const elemTrivia = document.getElementById("record-trivia");
+  if(elemTrivia) {
+    elemTrivia.textContent = recordJugadorTrivia !== "" ? recordTrivia + " pts (" + recordJugadorTrivia + ")" : recordTrivia + " pts";
+  }
+
+  // mostramos el puntaje de blackjack incluyendo el nombre del jugador si existe
+  const elemCartas = document.getElementById("record-blackjack");
+  if(elemCartas) {
+    elemCartas.textContent = recordJugadorCartas !== "" ? recordCartas + " pts (" + recordJugadorCartas + ")" : recordCartas + " pts";
+  }
 
   // leemos la ultima partida guardada de la generala con los datos de ambos jugadores
   const ultimaPartidaGenerala = localStorage.getItem("ultima_partida_generala");
@@ -41,10 +51,12 @@ document.addEventListener("DOMContentLoaded", function() {
   // evento para borrar todos los datos guardados
   document.getElementById("btn-borrar-records").addEventListener("click", function() {
     localStorage.removeItem("record_trivia");
+    localStorage.removeItem("record_trivia_jugador");
     localStorage.removeItem("record_dados");
     localStorage.removeItem("record_jugador");
     localStorage.removeItem("ultima_partida_generala");
     localStorage.removeItem("record_blackjack");
+    localStorage.removeItem("record_blackjack_jugador"); // Borramos también el nombre del blackjack
     location.reload(); // recargamos la pagina para actualizar la vista en 0
   });
 });

@@ -179,8 +179,10 @@ function finalizarJuego(mensaje) {
 
     if (mensaje.includes("Ganaste")) {
         let victorias = parseInt(localStorage.getItem("record_blackjack") || "0");
-        localStorage.setItem("record_blackjack", victorias + 1);
-        localStorage.setItem("record_blackjack_jugador", nombreJugadorBlackjack); // Guardamos el nombre asociado al récord
+        let nombreActual = nombreJugadorBlackjack || document.getElementById("nombre-jugador").value.trim() || "Jugador";
+        
+        localStorage.setItem("record_blackjack", victorias + 10);
+        localStorage.setItem("record_blackjack_jugador", nombreActual); // Guardamos el nombre asociado al récord
     }
 }
 
