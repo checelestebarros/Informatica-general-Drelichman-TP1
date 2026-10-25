@@ -4,24 +4,23 @@ let turnoActual = 1;
 let tiradas = 0;
 const MAX_TIRADAS = 3;
 
-// Declaramos las funciones tradicionales con 'function' para que el HTML (onclick) las reconozca siempre
 function obtenerNombreJ1() {
-  const inputJ1 = document.getElementById("nombreJ1");
+  const inputJ1 = document.getElementById("j1");
   return inputJ1 && inputJ1.value.trim() !== "" ? inputJ1.value : "Jugador 1";
 }
 
 function obtenerNombreJ2() {
-  const inputJ2 = document.getElementById("nombreJ2");
+  const inputJ2 = document.getElementById("j2");
   return inputJ2 && inputJ2.value.trim() !== "" ? inputJ2.value : "Jugador 2";
 }
 
 function actualizarInterfaz() {
-  const elNombreJ1 = document.getElementById("nombreJugador1");
-  const elNombreJ2 = document.getElementById("nombreJugador2");
-  const elPuntosJ1 = document.getElementById("puntosJ1");
-  const elPuntosJ2 = document.getElementById("puntosJ2");
-  const elTurno = document.getElementById("turnoActual");
-  const elTiradas = document.getElementById("tiradasHechas");
+  const elNombreJ1 = document.getElementById("p1-name");
+  const elNombreJ2 = document.getElementById("p2-name");
+  const elPuntosJ1 = document.getElementById("p1-score");
+  const elPuntosJ2 = document.getElementById("p2-score");
+  const elTurno = document.getElementById("current-player");
+  const elTiradas = document.getElementById("roll-count");
 
   if (elNombreJ1) elNombreJ1.innerText = obtenerNombreJ1();
   if (elNombreJ2) elNombreJ2.innerText = obtenerNombreJ2();
@@ -37,7 +36,7 @@ function actualizarInterfaz() {
 }
 
 function mostrarDados(dados) {
-  const contenedor = document.querySelector(".resultado-dados");
+  const contenedor = document.getElementById("dice-container");
   if (!contenedor) return;
 
   contenedor.innerHTML = "";
@@ -74,7 +73,7 @@ function tirarDados() {
   actualizarInterfaz();
 
   if (tiradas === MAX_TIRADAS) {
-    setTimeout(finalizarTurno, 300);
+    setTimeout(finalizarTurno, 500);
   }
 }
 
@@ -111,19 +110,24 @@ function reiniciarJuego() {
   turnoActual = 1;
   tiradas = 0;
 
-  const contenedor = document.querySelector(".resultado-dados");
+  const contenedor = document.getElementById("dice-container");
   if (contenedor) contenedor.innerHTML = "";
 
   actualizarInterfaz();
 }
 
-// Escuchadores de eventos cuando el DOM está listo
+// Escuchamos los botones e inputs directamente desde JavaScript
 document.addEventListener("DOMContentLoaded", () => {
-  const inputJ1 = document.getElementById("nombreJ1");
-  const inputJ2 = document.getElementById("nombreJ2");
+  const inputJ1 = document.getElementById("j1");
+  const inputJ2 = document.getElementById("j2");
+  const btnTirar = document.getElementById("btn-tirar");
+  const btnNueva = document.getElementById("btn-nueva");
 
   if (inputJ1) inputJ1.addEventListener("input", actualizarInterfaz);
   if (inputJ2) inputJ2.addEventListener("input", actualizarInterfaz);
+  
+  if (btnTirar) btnTirar.addEventListener("click", tirarDados);
+  if (btnNueva) btnNueva.addEventListener("click", reiniciarJuego);
 
   actualizarInterfaz();
 });
