@@ -16,11 +16,11 @@
         <a href="presentacion.html">Integrantes</a>
     </nav>
 
-    <main class="contenedor-principal">
-        <h1>Juego de Blackjack</h1>
-        
-
-        <section class="tarjeta-seccion">
+    <main class="layout-juego">
+        <!-- ZONA DE JUEGO (IZQUIERDA) -->
+        <div class="area-juego">
+            <h1>Juego de Blackjack</h1>
+            
             <div class="campo-form" style="margin-bottom: 15px;">
                 <label for="nombre-jugador">Ingresá tu nombre:</label>
                 <input type="text" id="nombre-jugador" placeholder="Ej: Celeste" required>
@@ -46,7 +46,17 @@
             </div>
 
             <div id="resultado" class="oculto"></div>
-        </section>
+        </div>
+
+        <!-- REGLAS (DERECHA) -->
+        <aside class="sidebar-reglas">
+            <h3>Reglas del Blackjack</h3>
+            <br>
+            <p>- Sumá 21 o acercate lo más posible sin pasarte.</p>
+            <p>- Las figuras (J, Q, K) valen 10 puntos.</p>
+            <p>- El As vale 1 u 11 según te convenga.</p>
+            <p>- Cada partida ganada te otorga 10 puntos.</p>
+        </aside>
     </main>
 
     <script src="js/blackjack.js"></script>

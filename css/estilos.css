@@ -72,9 +72,9 @@ h1 {
 
 h2 {
     font-size: 0.85rem;
-    color: #4800ff;
+    color: #00ff66;
     margin-bottom: 14px;
-    text-shadow: 1px 1px 0px #00ff66;
+    text-shadow: 1px 1px 0px #0e5a2d;
     text-align: center;
 }
 
@@ -87,7 +87,7 @@ h3 {
 
 p, li, label, footer p {
     font-size: 0.6rem;
-    color: #4f5eff;
+    color: #724fff;
     margin-bottom: 8px;
     line-height: 1.8;
 }

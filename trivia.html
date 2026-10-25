@@ -16,43 +16,55 @@
         <a href="presentacion.html">Integrantes</a>
     </nav>
 
-    <main class="contenedor-principal">
-        <h1>Juego de Trivia</h1>
+    <main class="layout-juego">
+        <!-- ZONA DE JUEGO (IZQUIERDA) -->
+        <div class="area-juego">
+            <h1>Juego de Trivia</h1>
 
-        <section id="zona-config" class="tarjeta-seccion">
-            <h2>Configuración</h2>
-            <div class="form-control">
-                
-                <div class="campo-form">
-                    <label for="nombre-jugador">Nombre:</label>
-                    <input type="text" id="nombre-jugador" placeholder="Ej: Celeste">
+            <section id="zona-config" style="background: transparent; border: none; box-shadow: none; padding: 0; margin-bottom: 0;">
+                <h2>Configuración</h2>
+                <div class="form-control">
+                    
+                    <div class="campo-form">
+                        <label for="nombre-jugador">Nombre:</label>
+                        <input type="text" id="nombre-jugador" placeholder="Ej: Celeste">
+                    </div>
+
+                    <div class="campo-form">
+                        <label for="categoria">Categoría:</label>
+                        <select id="categoria"></select>
+                    </div>
+
+                    <div class="campo-form">
+                        <label for="dificultad">Dificultad:</label>
+                        <select id="dificultad">
+                            <option value="easy">Fácil</option>
+                            <option value="medium">Media</option>
+                            <option value="hard">Difícil</option>
+                        </select>
+                    </div>
+
+                    <button id="btn-comenzar">Comenzar Juego</button>
                 </div>
+            </section>
 
-                <div class="campo-form">
-                    <label for="categoria">Categoría:</label>
-                    <select id="categoria"></select>
-                </div>
+            <section id="zona-juego" class="oculto" style="background: transparent; border: none; box-shadow: none; padding: 0; margin-bottom: 0;">
+                <div id="tiempo-restante">Tiempo restante: 10</div>
+                <h3 id="pregunta"></h3>
+                <div id="opciones" class="opciones-container"></div>
+                <div id="resultado" class="oculto"></div>
+            </section>
+        </div>
 
-                <div class="campo-form">
-                    <label for="dificultad">Dificultad:</label>
-                    <select id="dificultad">
-                        <option value="easy">Fácil</option>
-                        <option value="medium">Media</option>
-                        <option value="hard">Difícil</option>
-                    </select>
-                </div>
-
-                <button id="btn-comenzar">Comenzar Juego</button>
-            </div>
-        </section>
-
-        <!-- ESTO ES LO QUE FALTABA EN TU HTML -->
-        <section id="zona-juego" class="tarjeta-seccion oculto">
-            <div id="tiempo-restante">Tiempo restante: 10</div>
-            <h3 id="pregunta"></h3>
-            <div id="opciones" class="opciones-container"></div>
-            <div id="resultado" class="oculto"></div>
-        </section>
+        <!-- REGLAS (DERECHA) -->
+        <aside class="sidebar-reglas">
+            <h3>Reglas de la Trivia</h3>
+            <br>
+            <p>- Ingresá tu nombre, categoría y dificultad.</p>
+            <p>- Tenés 10 segundos para responder cada pregunta.</p>
+            <p>- Cada acierto suma 10 puntos a tu récord.</p>
+            <p>- ¡Superá tu mejor puntuación!</p>
+        </aside>
     </main>
 
     <script src="js/trivia.js"></script>
