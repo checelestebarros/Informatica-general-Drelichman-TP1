@@ -1,57 +1,58 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dados</title>
-    <link rel="stylesheet" href="css/estilos.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego de Dados</title>
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="js/dados.js" defer></script>
 </head>
 <body>
-    <nav>
-        <a href="index.html">Inicio</a>
-        <a href="dados.html">Dados</a>
-        <a href="trivia.html">Trivia</a>
-        <a href="blackjack.html">Blackjack</a>
-        <a href="puntajes.html">Puntajes</a>
-        <a href="presentacion.html">Integrantes</a>
+  <header>
+    <nav class="navbar">
+      <a href="index.html">Inicio</a>
+      <a href="dados.html" class="active">Dados</a>
+      <a href="trivia.html">Trivia</a>
+      <a href="blackjack.html">Blackjack</a>
+      <a href="puntajes.html">Puntajes</a>
+      <a href="presentacion.html">Integrantes</a>
     </nav>
+  </header>
 
-    <main class="contenedor-principal">
-        <h1>Juego de Dados</h1>
+  <main class="game-container">
+    <h1>Juego de Dados</h1>
+    
+    <div class="card">
+      <div class="input-group">
+        <label for="j1">Nombre J1:</label>
+        <input type="text" id="j1" placeholder="Ej: Celeste">
+      </div>
 
-        <section class="tarjeta-seccion">
-            <div class="contenedor-nombres">
-                <div>
-                    <label for="nombreJ1">Nombre J1:</label>
-<input type="text" id="nombreJ1" placeholder="Ej: Celeste">
-                </div>
-                <div>
-                    <label for="nombreJ2">Nombre J2:</label>
-<input type="text" id="nombreJ2" placeholder="Ej: Santos">
-                </div>
-            </div>
+      <div class="input-group">
+        <label for="j2">Nombre J2:</label>
+        <input type="text" id="j2" placeholder="Ej: Santos">
+      </div>
 
-            <div class="marcador">
-                <div>
-                    <h3 id="label-j1">Jugador 1</h3>
-                    <p id="puntos-j1">Puntos: 0</p>
-                </div>
-                <div>
-                    <h3 id="label-j2">Jugador 2</h3>
-                    <p id="puntos-j2">Puntos: 0</p>
-                </div>
-            </div>
+      <div class="scores">
+        <p><strong id="p1-name">Jugador 1</strong></p>
+        <p>Puntos: <span id="p1-score">0</span></p>
+        
+        <p><strong id="p2-name">Jugador 2</strong></p>
+        <p>Puntos: <span id="p2-score">0</span></p>
+      </div>
 
-            <p id="info-turno">Turno actual: Jugador 1</p>
-            <p id="info-tiradas">Tiradas: 0 / 3</p>
+      <div class="game-status">
+        <p>Turno actual: <span id="current-player">Jugador 1</span></p>
+        <p>Tiradas: <span id="roll-count">0</span> / 3</p>
+      </div>
 
-            <div id="zona-dados" class="zona-dados"></div>
+      <div id="dice-container" class="dice-display"></div>
 
-            <button id="btn-tirar">Tirar Dados</button>
-            <button id="btn-nueva-partida">Nueva Partida</button>
-        </section>
-    </main>
-
-    <script src="js/dados.js" defer></script>
+      <div class="actions">
+        <button id="btn-tirar">Tirar Dados</button>
+        <button id="btn-nueva">Nueva Partida</button>
+      </div>
+    </div>
+  </main>
 </body>
 </html>
