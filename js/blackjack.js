@@ -2,6 +2,7 @@ let mazo = [];
 let cartasJugador = [];
 let cartasCrupier = [];
 let juegoEnCurso = false;
+let nombreJugadorBlackjack = ""; // Variable para guardar el nombre ingresado
 
 // Referencias del DOM
 const contCartasJugador = document.getElementById("cartas-jugador");
@@ -75,7 +76,7 @@ function renderizarCartas(contenedor, mano, ocultarSegunda = false) {
     });
 }
 
-// Evento para validar e iniciar // alerta en caso de que no haya nombre 
+// Evento para validar e iniciar
 btnIniciar.addEventListener("click", () => {
     const nombre = inputNombre.value.trim();
     if (nombre === "") {
@@ -83,6 +84,7 @@ btnIniciar.addEventListener("click", () => {
         return;
     }
 
+    nombreJugadorBlackjack = nombre; // Guardamos el nombre localmente
     tituloJugador.textContent = `Cartas de ${nombre}`;
     inputNombre.disabled = true;
     btnIniciar.disabled = true;
@@ -178,6 +180,7 @@ function finalizarJuego(mensaje) {
     if (mensaje.includes("Ganaste")) {
         let victorias = parseInt(localStorage.getItem("record_blackjack") || "0");
         localStorage.setItem("record_blackjack", victorias + 1);
+        localStorage.setItem("record_blackjack_jugador", nombreJugadorBlackjack); // Guardamos el nombre asociado al récord
     }
 }
 
