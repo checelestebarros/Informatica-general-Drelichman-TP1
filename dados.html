@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Juego de Dados</title>
   <link rel="stylesheet" href="css/estilos.css">
+  <script src="js/dados.js" defer></script>
 </head>
 <body>
   <header>
@@ -18,41 +19,46 @@
     </nav>
   </header>
 
-  <main class="game-container">
+  <main class="contenedor-principal">
     <h1>Juego de Dados</h1>
     
-    <div class="card">
-      <div class="input-group">
-        <label for="j1">Nombre J1:</label>
-        <input type="text" id="j1" placeholder="Ej: Celeste">
+    <section class="tarjeta-seccion">
+      <div class="form-control">
+        <div class="campo-form">
+          <label for="input-j1">Nombre J1:</label>
+          <input type="text" id="input-j1" placeholder="Ej: Celeste">
+        </div>
+
+        <div class="campo-form">
+          <label for="input-j2">Nombre J2:</label>
+          <input type="text" id="input-j2" placeholder="Ej: Santos">
+        </div>
       </div>
 
-      <div class="input-group">
-        <label for="j2">Nombre J2:</label>
-        <input type="text" id="j2" placeholder="Ej: Santos">
+      <div style="margin: 20px 0;">
+        <p><strong id="nombre-display-j1">Jugador 1</strong></p>
+        <p>Puntos: <span id="puntos-j1">0</span></p>
+        <br>
+        <p><strong id="nombre-display-j2">Jugador 2</strong></p>
+        <p>Puntos: <span id="puntos-j2">0</span></p>
       </div>
 
-      <div class="scores">
-        <p><strong id="p1-name">Jugador 1</strong></p>
-        <p>Puntos: <span id="p1-score">0</span></p>
-        
-        <p><strong id="p2-name">Jugador 2</strong></p>
-        <p>Puntos: <span id="p2-score">0</span></p>
+      <div>
+        <p id="indicador-turno">Turno actual: <strong>Jugador 1</strong></p>
+        <p id="tiradas">Tiradas: 0 / 3</p>
       </div>
 
-      <div class="game-status">
-        <p>Turno actual: <span id="current-player">Jugador 1</span></p>
-        <p>Tiradas: <span id="roll-count">0</span> / 3</p>
-      </div>
+      <!-- Acá van a aparecer tus 5 dados dinámicamente -->
+      <div id="dados" style="margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;"></div>
+      
+      <!-- Mensajes de fin de turno/partida -->
+      <p id="mensaje" style="color: #00ff66; margin-bottom: 15px; font-size: 0.75rem;"></p>
 
-      <div id="dice-container" class="dice-display"></div>
-
-      <div class="actions">
-        <button id="btn-tirar">Tirar Dados</button>
-        <button id="btn-nueva">Nueva Partida</button>
+      <div>
+        <button id="btnTirar" class="btn">Tirar Dados</button>
+        <button id="btnReiniciar" class="btn">Nueva Partida</button>
       </div>
-    </div>
+    </section>
   </main>
-  <script src="js/dados.js" defer></script>
 </body>
 </html>
