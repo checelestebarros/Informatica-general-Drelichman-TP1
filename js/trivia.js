@@ -186,8 +186,15 @@ function finalizarJuego() {
 
 // ESCUCHAR EVENTO DEL BOTÓN DE INICIO
 document.getElementById("btn-comenzar").addEventListener("click", () => {
+    // Validar que el nombre no esté vacío
+    const nombreInput = document.getElementById("nombre-jugador").value.trim();
+    
+    if (nombreInput === "") {
+        alert("¡Alto ahí! Por favor ingresa tu nombre para poder jugar.");
+        return; 
+    }
+
     obtenerPreguntas();
 });
-
 // CARGAR SELECTOR DE CATEGORÍAS
 cargarCategorias();
